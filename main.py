@@ -43,7 +43,6 @@ def read_info(file):
                 'ep': int(line['ep']) if line['ep'] else None,
                 'title': line['title']
             })
-            # print(data)
     return data
 
 

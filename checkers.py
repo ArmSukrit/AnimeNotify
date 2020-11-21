@@ -12,16 +12,21 @@ info = {
 }
 
 each checker function needs user-defined ep function for each website and pre-defined process function
+    :param info: dict
     ep function
         return int(number of all eps), str(link to latest ep)
-    process function takes the ep function and info dict as param
+    process function  # do not care much about this function
+        :param ep: function
+        :param info: dict
         it checks for new ep, save to csv, and report to terminal
-        return True if found new ep, else False
+        return True if found new ep, False if not, else None 
+    return result of process function
 """
 
 # define checkers here -------------------------------------------------------------------------------------------------
 
 def anime_hayai_checker(info):
+    """http://anime-hayai.com/"""
     def ep():
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
@@ -34,6 +39,7 @@ def anime_hayai_checker(info):
 
 
 def four_anime_to_checker(info):
+    """https://4anime.to/"""
     def ep():
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
@@ -64,12 +70,11 @@ def save(title, ep, file=gv.info_file, old_ep=None):
 
 
 def report(title, ep, link):
-    print(
-        f"- {title}, {ep}, {link}"
-    )
+    print(f"- {title}, {ep}, {link}")
 
 
 def process(ep_function, info):
+    """return True if found new ep, False if not found, None if no saved ep in gv.info_file"""
     current_ep, current_link = ep_function()
     saved_ep = info['ep']
     title = info['title']
