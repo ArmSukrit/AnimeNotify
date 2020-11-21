@@ -33,6 +33,19 @@ def print_what_to_check(data):
 
 def read_info(file):
     """return list[dict], keys in dict are url, ep, title"""
+
+    def create_csv_if_not_exist(file):
+        if not os.path.exists(file):
+            with open(file, 'w') as new_file:
+                new_file.write(','.join(gv.field_names) + '\n')
+            return True
+        return False
+
+    if create_csv_if_not_exist(file):
+        input(f"exit program and add url into {gv.info_file}\n"
+              f"then rerun this program (do not forget to save the file)")
+        exit(0)
+
     with open(file, 'r', newline='') as f:
         reader = csv.DictReader(f, fieldnames=gv.field_names)
         next(reader)
