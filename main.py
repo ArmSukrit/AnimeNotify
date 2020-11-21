@@ -15,10 +15,20 @@ import global_var as gv
 def main():
     # read urls from csv
     data = read_info(gv.info_file)
+    print_what_to_check(data)
 
     # check each url using threading
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(check, data)
+        print("New update(s), if there is")
+        if True in executor.map(check, data):
+            input()  # to not terminate program instantly
+
+
+def print_what_to_check(data):
+    print("Checking...")
+    for each in data:
+        print(f"- {each['title']}  ({each['url']})")
+    print("_________________________________________________________________________________________________________\n")
 
 
 def read_info(file):
@@ -41,8 +51,10 @@ def check(info):
     url = info['url']
     for key in checkers.keys():
         if key in url:
-            checkers[key](info)
-            break
+            if checkers[key](info):
+                return True
+            else:
+                return False
 
 
 if __name__ == '__main__':
