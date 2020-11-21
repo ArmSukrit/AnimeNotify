@@ -4,6 +4,7 @@ import concurrent.futures
 
 
 from checkers import *
+# each key of checkers dict is something common across urls from the same website
 checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
