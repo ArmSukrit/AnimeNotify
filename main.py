@@ -15,7 +15,7 @@ import global_var as gv
 def main():
     # read urls from csv
     data = read_info(gv.info_file)
-    print_what_to_check(data)
+    # print_what_to_check(data)
 
     # check each url using threading
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -34,9 +34,9 @@ def print_what_to_check(data):
 def read_info(file):
     """return list[dict], keys in dict are url, ep, title"""
 
-    def create_csv_if_not_exist(file):
-        if not os.path.exists(file):
-            with open(file, 'w') as new_file:
+    def create_csv_if_not_exist(path):
+        if not os.path.exists(path):
+            with open(path, 'w') as new_file:
                 new_file.write(','.join(gv.field_names) + '\n')
             return True
         return False
