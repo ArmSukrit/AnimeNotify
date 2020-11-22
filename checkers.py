@@ -87,3 +87,17 @@ def process(ep_function, info):
             return True
         else:
             return False
+
+
+class CompareResult:
+    def __init__(self, title, current_ep, current_link=None, old_ep=None):
+        self.title = title
+        self.current_ep = current_ep
+        self.current_link = current_link
+        self.old_ep = old_ep
+
+    def is_found(self):
+        if self.old_ep:
+            return self.old_ep < self.current_ep
+        else:
+            return False
