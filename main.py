@@ -2,9 +2,10 @@ import os
 import csv
 import concurrent.futures
 from time import sleep
+import requests
 
 
-from checkers import *
+from checkers import anime_hayai_checker, four_anime_to_checker
 # each key of checkers dict is something common across urls from the same website
 checkers = {
     "anime-hayai": anime_hayai_checker,
@@ -14,6 +15,8 @@ import global_var as gv
 
 
 def main():
+    wait_for_internet()
+
     # read urls from csv
     data = read_info(gv.info_file)
     print_what_to_check(data)
@@ -37,6 +40,20 @@ def print_what_to_check(data):
     for each in data:
         print(f"- {each['title']}  ({each['url']})")
     print("_________________________________________________________________________________________________________\n")
+
+
+def wait_for_internet():
+    printed_once = False
+    while True:
+        try:
+            requests.get("https://www.google.com/")
+        except requests.exceptions.ConnectionError:
+            if not printed_once:
+                print("Waiting for internet...")
+                printed_once = True
+        else:
+            os.system("cls")
+            break
 
 
 def read_info(file):
