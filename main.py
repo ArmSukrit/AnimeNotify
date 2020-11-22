@@ -1,6 +1,7 @@
 import os
 import csv
 import concurrent.futures
+from time import sleep
 
 
 from checkers import *
@@ -15,13 +16,20 @@ import global_var as gv
 def main():
     # read urls from csv
     data = read_info(gv.info_file)
-    # print_what_to_check(data)
+    print_what_to_check(data)
 
     # check each url using threading
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        print("New update(s), if there is")
-        if True in executor.map(check, data):
-            input()  # to not terminate program instantly
+        results = [result for result in executor.map(check, data) if result is not None]
+
+    # results is a list of CompareResult(s)
+    if results:
+        save(results)
+        if report(results):
+            input()  # to not terminate the terminal instantly
+    else:
+        print("No update is found.")
+        sleep(3)
 
 
 def print_what_to_check(data):
@@ -60,13 +68,46 @@ def read_info(file):
 
 
 def check(info):
+    """
+    :param info: list of dict
+    :return: checkers.CompareResult if found new ep else None
+    """
     url = info['url']
     for key in checkers.keys():
         if key in url:
-            if checkers[key](info):
-                return True
-            else:
-                return False
+            return checkers[key](info)  # call a specific checker based on key
+
+
+def save(results, file=gv.info_file):
+    with open(file, 'r') as f:
+        lines = f.readlines()
+    with open(file, 'w') as f:
+        for line in lines:
+            for result in results:
+                if result.title in line:
+                    line = line.rstrip()
+                    if result.old_ep:
+                        components = line.split(',')
+                        line = ','.join(components[:2]) + ',' + str(result.current_ep)  # replace old ep with new ep
+                    else:
+                        line += str(result.current_ep)
+                    line += '\n'
+                    break
+            f.write(line)
+
+
+def report(results):
+    """return True if printed something in terminal else False"""
+    printed_once = False
+    reported = False
+    for result in results:
+        if result.is_found():
+            if not printed_once:
+                print("New update(s)")
+                printed_once = True
+            print(f"- {result.title}, ep {result.current_ep}, {result.current_link}")
+            reported = True
+    return reported
 
 
 if __name__ == '__main__':

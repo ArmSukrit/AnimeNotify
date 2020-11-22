@@ -11,16 +11,14 @@ info = {
     'title': str 
 }
 
-each checker function needs user-defined ep function for each website and pre-defined process function
+each checker function needs user-defined ep function for each website and returns called pre-defined compare function
     :param info: dict
-    ep function
-        return int(number of all eps), str(link to latest ep)
-    process function  # do not care much about this function
-        :param ep: function
-        :param info: dict
-        it checks for new ep, save to csv, and report to terminal
-        return True if found new ep, False if not, else None 
-    return result of process function
+    /* structure of checker function
+    def ep():
+        // todo
+        return int(all eps on website), str(link to latest ep)
+    return compare(ep, info) 
+    */
 """
 
 # define checkers here -------------------------------------------------------------------------------------------------
@@ -35,7 +33,7 @@ def anime_hayai_checker(info):
         link = eps[-1].a['href']
         return len(eps), link
 
-    return process(ep, info)
+    return compare(ep, info)
 
 
 def four_anime_to_checker(info):
@@ -47,46 +45,24 @@ def four_anime_to_checker(info):
         link = eps[-1].a['href']
         return len(eps), link
 
-    return process(ep, info)
+    return compare(ep, info)
 
 
 # ______________________________________________________________________________________________________________________
 
 
-def save(title, ep, file=gv.info_file, old_ep=None):
-    with open(file, 'r') as f:
-        lines = f.readlines()
-    with open(file, 'w') as f:
-        for line in lines:
-            if title in line:
-                line = line.rstrip()
-                if old_ep:
-                    components = line.split(',')
-                    line = ','.join(components[:2]) + ',' + str(ep)
-                else:
-                    line += str(ep)
-                line += '\n'
-            f.write(line)
-
-
-def report(title, ep, link):
-    print(f"- {title}, {ep}, {link}")
-
-
-def process(ep_function, info):
-    """return True if found new ep, False if not found, None if no saved ep in gv.info_file"""
+def compare(ep_function, info):
+    """return CompareResult if found new ep or saved info['ep'] is None, else None"""
     current_ep, current_link = ep_function()
     saved_ep = info['ep']
     title = info['title']
     if saved_ep is None:
-        save(title, current_ep)
+        return CompareResult(title, current_ep)
     else:
         if saved_ep != current_ep:
-            save(title, current_ep, old_ep=saved_ep)
-            report(title, current_ep, current_link)
-            return True
+            return CompareResult(title, current_ep, current_link, saved_ep)
         else:
-            return False
+            return None
 
 
 class CompareResult:
@@ -101,3 +77,7 @@ class CompareResult:
             return self.old_ep < self.current_ep
         else:
             return False
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(title='{self.title}', current_ep={self.current_ep}, " \
+               f"current_link='{self.current_link}', old_ep={self.old_ep})"
