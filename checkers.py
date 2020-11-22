@@ -74,7 +74,7 @@ class CompareResult:
 
     def is_found(self):
         if self.old_ep:
-            return self.old_ep < self.current_ep
+            return self.old_ep != self.current_ep
         else:
             return False
 
