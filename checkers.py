@@ -42,11 +42,21 @@ def four_anime_to_checker(info):
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
         eps = soup.find('ul', {'class': "episodes range active"}).find_all('li')
-        link = eps[-1].a['href']
+        link = eps[0].a['href']
         return len(eps), link
 
     return compare(ep, info)
 
+
+def kissanimes_tv(info):
+    """https://kissanimes.tv/"""
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        soup = BeautifulSoup(r.text, 'lxml')
+        eps = soup.find('div', {'class': "listing listing8515 full"}).find_all('a')
+        return len(eps), "https://kissanimes.tv" + eps[0]['href']
+
+    return compare(ep, info)
 
 # ______________________________________________________________________________________________________________________
 

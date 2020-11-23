@@ -5,11 +5,12 @@ from time import sleep
 import requests
 
 
-from checkers import anime_hayai_checker, four_anime_to_checker
+from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv
 # each key of checkers dict is something common across urls from the same website
 checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
+    "kissanimes.tv": kissanimes_tv,
 }
 import global_var as gv
 
@@ -116,15 +117,13 @@ def save(results, file=gv.info_file):
 def report(results):
     """return True if printed something in terminal else False"""
     printed_once = False
-    reported = False
     for result in results:
         if result.is_found():
             if not printed_once:
                 print("New update(s)")
                 printed_once = True
             print(f"- {result.title}, ep {result.current_ep}, {result.current_link}")
-            reported = True
-    return reported
+    return printed_once
 
 
 if __name__ == '__main__':
