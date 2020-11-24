@@ -48,7 +48,7 @@ def four_anime_to_checker(info):
     return compare(ep, info)
 
 
-def kissanimes_tv(info):
+def kissanimes_tv_checker(info):
     """https://kissanimes.tv/"""
     def ep():
         r = requests.get(info['url'], headers=gv.headers)

@@ -5,12 +5,12 @@ from time import sleep
 import requests
 
 
-from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv
+from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker
 # each key of checkers dict is something common across urls from the same website
-checkers = {
+installed_checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
-    "kissanimes.tv": kissanimes_tv,
+    "kissanimes.tv": kissanimes_tv_checker,
 }
 import global_var as gv
 
@@ -91,9 +91,12 @@ def check(info):
     :return: checkers.CompareResult if found new ep else None
     """
     url = info['url']
-    for key in checkers.keys():
+    for key in installed_checkers.keys():
         if key in url:
-            return checkers[key](info)  # call a specific checker based on key
+            return installed_checkers[key](info)  # call a specific checker based on key
+    print(f"cannot find any key that matches with {url}.\n"
+          f"make sure to install the checker for this website. See installed_checkers in main.py\n")
+    return None
 
 
 def save(results, file=gv.info_file):
