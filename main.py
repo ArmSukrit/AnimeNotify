@@ -79,7 +79,6 @@ def read_info(file):
         wait_key(f"Add url to {gv.info_file} and save.\n"
                  f"Press any key to continue...")
         restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
-        exit(0)
 
     with open(file, 'r', newline='') as f:
         reader = csv.DictReader(f, fieldnames=gv.field_names)
@@ -101,9 +100,8 @@ def read_info(file):
     if not data:
         wait_key(f"There is no url in {gv.info_file}\n"
                  f"Add some and save.\n"
-                 f"Press any key to continue...")
+                 f"Then press any key to continue...")
         restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
-        exit(0)
 
     return data, duplicates
 
@@ -128,7 +126,6 @@ def check(info):
         if key in url:
             checker = installed_checkers[key]
             return compare(checker, info)
-            # return installed_checkers[key](info)  # call a specific checker based on key
     print(f"Checker for {url} is not found or not installed.\n")
     return None
 

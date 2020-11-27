@@ -57,3 +57,4 @@ def see_in_browser(html_text, file="test.html"):
 def restart(fp, py_executable="python"):
     """restart the caller python script of this func"""
     os.system(f"{py_executable} {fp}")
+    exit(0)
