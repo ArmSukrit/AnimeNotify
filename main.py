@@ -7,7 +7,7 @@ from time import sleep
 import global_var as gv
 from utils import wait_for_internet, wait_key, restart
 from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
-    crunchyroll_checker
+    crunchyroll_checker, anime_master_checker, anime_sugoi_checker
 
 # each key of checkers dict is something common across urls from the same website
 installed_checkers = {
@@ -15,7 +15,9 @@ installed_checkers = {
     "4anime.to": four_anime_to_checker,
     "kissanimes.tv": kissanimes_tv_checker,
     "youtube": youtube_playlist_checker,
-    "crunchyroll": crunchyroll_checker
+    "crunchyroll": crunchyroll_checker,
+    "anime-master": anime_master_checker,
+    "anime-sugoi": anime_sugoi_checker,
 }
 
 
@@ -23,10 +25,10 @@ def main():
     wait_for_internet()
 
     # read urls from csv
-    data, duplicates = read_info(gv.info_file)
+    data, duplicate_urls = read_info(gv.info_file)
     print_what_to_check(data)
-    if duplicates:
-        report_duplicates(duplicates)
+    if duplicate_urls:
+        report_duplicates(duplicate_urls)
 
     # check each url using threading
     with concurrent.futures.ThreadPoolExecutor() as executor:

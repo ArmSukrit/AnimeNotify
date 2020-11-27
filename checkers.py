@@ -87,6 +87,30 @@ def crunchyroll_checker(info):
     return compare(ep, info)
 
 
+def anime_master_checker(info):
+    """https://anime-master.com/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('table', class_="table table-hover table-bordered").find_all('a')
+        return len(eps), eps[-1]['href']
+
+    return compare(ep, info)
+
+
+def anime_sugoi_checker(info):
+    """https://www.anime-sugoi.com/{anime_id}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('div', class_="b123").center.div.find_all('a')
+        return len(eps) // 3, eps[-3]['href']
+
+    return compare(ep, info)
+
+
 # ______________________________________________________________________________________________________________________
 
 
