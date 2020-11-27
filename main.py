@@ -1,10 +1,11 @@
 import concurrent.futures
 import csv
 import os
+import sys
 from time import sleep
 
 import global_var as gv
-from utils import wait_for_internet, wait_key
+from utils import wait_for_internet, wait_key, restart
 from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
     crunchyroll_checker
 
@@ -22,8 +23,10 @@ def main():
     wait_for_internet()
 
     # read urls from csv
-    data = read_info(gv.info_file)
+    data, duplicates = read_info(gv.info_file)
     print_what_to_check(data)
+    if duplicates:
+        report_duplicates(duplicates)
 
     # check each url using threading
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -47,7 +50,7 @@ def print_what_to_check(data):
 
 
 def read_info(file):
-    """return list[dict], keys in dict are 'url', 'ep', 'title'   """
+    """return list[dict], keys in dict are 'url', 'ep', 'title' and set of duplicate urls if there is any  """
 
     def create_csv_if_not_exist(path):
         if not os.path.exists(path):
@@ -57,21 +60,45 @@ def read_info(file):
         return False
 
     if create_csv_if_not_exist(file):
-        input(f"exit program and add url into {gv.info_file}\n"
-              f"then rerun this program (do not forget to save the file)")
+        wait_key(f"Add url to {gv.info_file} and save.\n"
+                 f"Press any key to continue...")
+        restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
         exit(0)
 
     with open(file, 'r', newline='') as f:
         reader = csv.DictReader(f, fieldnames=gv.field_names)
         next(reader)
         data = []
+        read_urls = []
+        duplicates = set()
         for line in reader:
-            data.append({
-                "url": line['url'],
-                'ep': int(line['ep']) if line['ep'] else None,
-                'title': line['title']
-            })
-    return data
+            data_dict = {
+                    "url": line['url'],
+                    'ep': int(line['ep']) if line['ep'] else None,
+                    'title': line['title']
+                }
+            if line['url'] not in read_urls:
+                data.append(data_dict)
+                read_urls.append(line['url'])
+            else:
+                duplicates.add(line['url'])
+    if not data:
+        wait_key(f"There is no url in {gv.info_file}\n"
+                 f"Add some and save.\n"
+                 f"Press any key to continue...")
+        restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
+        exit(0)
+
+    return data, duplicates
+
+
+def report_duplicates(duplicates):
+    printed_urls = []
+    for url in duplicates:
+        if url not in printed_urls:
+            print(f"Found multiple of {url} in {gv.info_file}.")
+            printed_urls.append(url)
+    print()
 
 
 def check(info):
@@ -98,7 +125,7 @@ def save(results, file=gv.info_file):
         added = False
         for line in lines:
             for result in results:
-                if result.title in line:
+                if result.url in line:
                     line = line.rstrip()
                     if result.old_ep:
                         components = line.split(',')
@@ -127,6 +154,8 @@ def report(results):
                 print("New update(s)")
                 printed_once = True
             print(f"- {result.title}, ep {result.current_ep}, {result.current_link}")
+    if printed_once:
+        print()
     return printed_once
 
 

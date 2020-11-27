@@ -106,18 +106,19 @@ def compare(ep_function, info):
         saved_ep = info['ep']
         title = info['title']
         if saved_ep is None:
-            return CompareResult(title, current_ep)
+            return CompareResult(title, current_ep, info['url'])
         else:
             if saved_ep != current_ep:
-                return CompareResult(title, current_ep, current_link, saved_ep)
+                return CompareResult(title, current_ep, info['url'], current_link, saved_ep)
             else:
                 return None
 
 
 class CompareResult:
-    def __init__(self, title, current_ep, current_link=None, old_ep=None):
+    def __init__(self, title, current_ep, url, current_link=None, old_ep=None):
         self.title = title
         self.current_ep = current_ep
+        self.url = url
         self.current_link = current_link
         self.old_ep = old_ep
 
