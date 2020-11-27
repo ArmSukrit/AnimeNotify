@@ -6,8 +6,7 @@ from time import sleep
 
 import global_var as gv
 from utils import wait_for_internet, wait_key, restart
-from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
-    crunchyroll_checker, anime_master_checker, anime_sugoi_checker, fairyanime_checker
+from checkers import *
 
 # each key of checkers dict is something common across urls from the same website
 installed_checkers = {
@@ -19,6 +18,8 @@ installed_checkers = {
     "anime-master": anime_master_checker,
     "anime-sugoi": anime_sugoi_checker,
     "fairyanime": fairyanime_checker,
+    "animekimi_checker": animekimi_checker,
+    "anime-kimuchi": anime_kimuchi_checker,
 }
 
 

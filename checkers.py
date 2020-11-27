@@ -123,6 +123,30 @@ def fairyanime_checker(info):
     return compare(ep, info)
 
 
+def animekimi_checker(info):
+    """https://animekimi.com/{category}/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('ul', class_="episodios").find_all('a')
+        return len(eps), eps[-1]['href']
+
+    return compare(ep, info)
+
+
+def anime_kimuchi_checker(info):
+    """https://anime-kimuchi.com/{year}/{month}/{day}/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('div', id="post-131801").find_all('div', {'class': 'post-body'})[1].find_all('a')
+        return len(eps), eps[-1]['href']
+
+    return compare(ep, info)
+
+
 # ______________________________________________________________________________________________________________________
 
 
