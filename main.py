@@ -7,6 +7,9 @@ from time import sleep
 import global_var as gv
 from utils import wait_for_internet, wait_key, restart
 
+# This bot compares the number of specific html elements against the number in save file and can optionally
+# returns the href of the latest element
+
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
 installed_checkers = {
@@ -27,7 +30,8 @@ installed_checkers = {
     "mio-anime": mio_anime_checker,
     "gg-anime": gg_anime_checker,
     "shibaanime": shibaanime_checker,
-    "animelizm": animelizm_checker
+    "animelizm": animelizm_checker,
+    "i-moviedhd": i_movie_hd_checker,
 }
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -122,8 +126,10 @@ def check(info):
     url = info['url']
     for key in installed_checkers.keys():
         if key in url:
-            return installed_checkers[key](info)  # call a specific checker based on key
-    print(f"Checker for {url} is not found.\n")
+            checker = installed_checkers[key]
+            return compare(checker, info)
+            # return installed_checkers[key](info)  # call a specific checker based on key
+    print(f"Checker for {url} is not found or not installed.\n")
     return None
 
 
@@ -146,7 +152,7 @@ def save(results, file=gv.info_file):
                         if line[-1] != ',':
                             line += ','
                         line += str(result.current_ep)
-                        print(f"added '{result.title}' to checklist. (current ep {result.current_ep})")
+                        print(f"Added '{result.title}' to checklist. (current ep {result.current_ep})")
                     line += '\n'
                     break
             f.write(line)
