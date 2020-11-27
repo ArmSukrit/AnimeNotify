@@ -3,9 +3,8 @@ import csv
 import os
 from time import sleep
 
-import requests
-
 import global_var as gv
+from utils import wait_for_internet, wait_key
 from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
     crunchyroll_checker
 
@@ -32,13 +31,9 @@ def main():
 
     # results is a list of CompareResult(s)
     if results:
-        added = False
-        if save(results):
-            added = True
-        if report(results):  # user decide when to exit program
-            input()
-        elif added:  # user just added new url(s), so it is nice to wait for user to see that url(s) is actually added
-            sleep(3)
+        save(results)
+        report(results)
+        wait_key("Press any key to exit...")
     else:
         print("No update is found.")
         sleep(3)
@@ -49,20 +44,6 @@ def print_what_to_check(data):
     for each in data:
         print(f"- {each['title']}  ({each['url']})")
     print("_________________________________________________________________________________________________________\n")
-
-
-def wait_for_internet():
-    printed_once = False
-    while True:
-        try:
-            requests.get("https://www.google.com/")
-        except requests.exceptions.ConnectionError:
-            if not printed_once:
-                print("Waiting for internet...")
-                printed_once = True
-        else:
-            os.system("cls")
-            break
 
 
 def read_info(file):

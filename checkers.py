@@ -96,8 +96,8 @@ def compare(ep_function, info):
     try:
         current_ep, current_link = ep_function()
     except requests.exceptions.ConnectionError:
-        print("check your internet, then try again.")
-        input("Enter to exit")
+        input("Check your internet, then try again.\n"
+              "Enter to exit\n")
         exit(1)
     except:
         print(f"cannot check {info['title']}, ({info['url']}) checker = {ep_function.__name__}")
