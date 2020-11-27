@@ -22,7 +22,6 @@ each checker function needs user-defined ep function for each website and return
     */
 """
 
-
 # define checkers here -------------------------------------------------------------------------------------------------
 
 def anime_hayai_checker(info):
@@ -146,6 +145,101 @@ def anime_kimuchi_checker(info):
 
     return compare(ep, info)
 
+
+def anime_teri_checker(info):
+    """https://www.anime-teri.com/{anime_id}/{anime_title}"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find_all('ul', class_="list-ui-anime")
+        return len(eps), eps[-1].center.a['href']
+
+    return compare(ep, info)
+
+
+def akaanime_checker(info):
+    """https://akaanime.com/{category}/{anime_id}"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('div', id="series_ep_st").find_all('a')
+        return len(eps), info['url']  # there is no direct link to any single ep
+
+    return compare(ep, info)
+
+
+def hereanime_checker(info):
+    """https://hereanime.com/{anime_title}"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find_all('div', class_="col-12 ep-grid")
+        return len(eps), eps[-1].a['href']
+
+    return compare(ep, info)
+
+
+def anime_i_checker(info):
+    """https://anime-i.com/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = [each for each in s.find('div', class_="links").find_all('a') if "hist-content" in str(each)]
+        return len(eps), info['url'] + eps[-1]['href'][1:]
+
+    return compare(ep, info)
+
+
+def mio_anime_checker(info):
+    """https://www.mio-anime.com/{??}/{???}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find_all('ul', class_="list-ui-anime")
+        return len(eps), eps[-1].center.a['href']
+
+    return compare(ep, info)
+
+
+def gg_anime_checker(info):
+    """https://www.gg-anime.com/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = [each for each in s.find_all('h3') if 'href="https://www.anime-gg.com/watch/' in str(each)]
+        return len(eps), eps[-1].span.a['href']
+
+    return compare(ep, info)
+
+
+def shibaanime_checker(info):
+    """https://www.shibaanime.com/anime/{anime_id}"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('div', id="anime-content").find_all('p')
+        return len(eps), eps[-1].a['href']
+
+    return compare(ep, info)
+
+
+def animelizm_checker(info):
+    """https://www.animelizm.com/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('div', class_="mpPostList mp-group-1605").find_all('a')
+        return len(eps), eps[-1]['href']
+
+    return compare(ep, info)
 
 # ______________________________________________________________________________________________________________________
 

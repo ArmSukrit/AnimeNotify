@@ -6,9 +6,9 @@ from time import sleep
 
 import global_var as gv
 from utils import wait_for_internet, wait_key, restart
-from checkers import *
 
-# each key of checkers dict is something common across urls from the same website
+# each key of checkers dict is something common across urls from the same website --------------------------------------
+from checkers import *
 installed_checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
@@ -20,8 +20,16 @@ installed_checkers = {
     "fairyanime": fairyanime_checker,
     "animekimi_checker": animekimi_checker,
     "anime-kimuchi": anime_kimuchi_checker,
+    "anime-teri": anime_teri_checker,
+    "akaanime": akaanime_checker,
+    "hereanime": hereanime_checker,
+    "anime-i": anime_i_checker,
+    "mio-anime": mio_anime_checker,
+    "gg-anime": gg_anime_checker,
+    "shibaanime": shibaanime_checker,
+    "animelizm": animelizm_checker
 }
-
+# ----------------------------------------------------------------------------------------------------------------------
 
 def main():
     wait_for_internet()
