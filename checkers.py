@@ -1,6 +1,6 @@
+import cloudscraper
 import requests
 from bs4 import BeautifulSoup
-import cloudscraper
 
 import global_var as gv
 
@@ -33,8 +33,7 @@ def anime_hayai_checker(info):
         soup = BeautifulSoup(r.text, 'lxml')
         eps = [each for each in soup.find_all('p', {'style': "text-align:center"}) if ("ตอนที่ " and "HD" in each.text)
                and "แนะนำ" not in each.text]
-        link = eps[-1].a['href']
-        return len(eps), link
+        return len(eps), eps[-1].a['href']
 
     return compare(ep, info)
 
@@ -46,8 +45,7 @@ def four_anime_to_checker(info):
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
         eps = soup.find('ul', {'class': "episodes range active"}).find_all('li')
-        link = eps[0].a['href']
-        return len(eps), link
+        return len(eps), eps[0].a['href']
 
     return compare(ep, info)
 
@@ -94,20 +92,26 @@ def crunchyroll_checker(info):
 
 def compare(ep_function, info):
     """return CompareResult if found new ep or saved info['ep'] is None, else None"""
+
     try:
         current_ep, current_link = ep_function()
+    except requests.exceptions.ConnectionError:
+        print("check your internet, then try again.")
+        input("Enter to exit")
+        exit(1)
     except:
-        print(f"cannot check {info['title']}, ({info['url']})")
+        print(f"cannot check {info['title']}, ({info['url']}) checker = {ep_function.__name__}")
         return None
-    saved_ep = info['ep']
-    title = info['title']
-    if saved_ep is None:
-        return CompareResult(title, current_ep)
     else:
-        if saved_ep != current_ep:
-            return CompareResult(title, current_ep, current_link, saved_ep)
+        saved_ep = info['ep']
+        title = info['title']
+        if saved_ep is None:
+            return CompareResult(title, current_ep)
         else:
-            return None
+            if saved_ep != current_ep:
+                return CompareResult(title, current_ep, current_link, saved_ep)
+            else:
+                return None
 
 
 class CompareResult:

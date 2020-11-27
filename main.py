@@ -1,12 +1,14 @@
-import os
-import csv
 import concurrent.futures
+import csv
+import os
 from time import sleep
+
 import requests
 
-
+import global_var as gv
 from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
     crunchyroll_checker
+
 # each key of checkers dict is something common across urls from the same website
 installed_checkers = {
     "anime-hayai": anime_hayai_checker,
@@ -15,7 +17,6 @@ installed_checkers = {
     "youtube": youtube_playlist_checker,
     "crunchyroll": crunchyroll_checker
 }
-import global_var as gv
 
 
 def main():
@@ -65,7 +66,7 @@ def wait_for_internet():
 
 
 def read_info(file):
-    """return list[dict], keys in dict are url, ep, title"""
+    """return list[dict], keys in dict are 'url', 'ep', 'title'   """
 
     def create_csv_if_not_exist(path):
         if not os.path.exists(path):
@@ -97,6 +98,7 @@ def check(info):
     :param info: list of dict
     :return: checkers.CompareResult if found new ep else None
     """
+
     url = info['url']
     for key in installed_checkers.keys():
         if key in url:
@@ -136,6 +138,7 @@ def save(results, file=gv.info_file):
 
 def report(results):
     """return True if printed something in terminal else False"""
+
     printed_once = False
     for result in results:
         if result.is_found():
