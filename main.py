@@ -5,13 +5,15 @@ from time import sleep
 import requests
 
 
-from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker
+from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
+    crunchyroll_checker
 # each key of checkers dict is something common across urls from the same website
 installed_checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
     "kissanimes.tv": kissanimes_tv_checker,
     "youtube": youtube_playlist_checker,
+    "crunchyroll": crunchyroll_checker
 }
 import global_var as gv
 
@@ -29,9 +31,13 @@ def main():
 
     # results is a list of CompareResult(s)
     if results:
-        save(results)
-        if report(results):
-            input()  # to not terminate the terminal instantly
+        added = False
+        if save(results):
+            added = True
+        if report(results):  # user decide when to exit program
+            input()
+        elif added:  # user just added new url(s), so it is nice to wait for user to see that url(s) is actually added
+            sleep(3)
     else:
         print("No update is found.")
         sleep(3)
@@ -101,9 +107,12 @@ def check(info):
 
 
 def save(results, file=gv.info_file):
+    """returns True if new url is added to checklist else False"""
+
     with open(file, 'r') as f:
         lines = f.readlines()
     with open(file, 'w') as f:
+        added = False
         for line in lines:
             for result in results:
                 if result.title in line:
@@ -112,10 +121,17 @@ def save(results, file=gv.info_file):
                         components = line.split(',')
                         line = ','.join(components[:2]) + ',' + str(result.current_ep)  # replace old ep with new ep
                     else:
+                        added = True
+                        if line[-1] != ',':
+                            line += ','
                         line += str(result.current_ep)
+                        print(f"added '{result.title}' to checklist. (current ep {result.current_ep})")
                     line += '\n'
                     break
             f.write(line)
+        if added:
+            print()
+        return added
 
 
 def report(results):

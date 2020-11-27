@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import cloudscraper
 
 import global_var as gv
 
@@ -21,10 +22,12 @@ each checker function needs user-defined ep function for each website and return
     */
 """
 
+
 # define checkers here -------------------------------------------------------------------------------------------------
 
 def anime_hayai_checker(info):
     """http://anime-hayai.com/"""
+
     def ep():
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
@@ -38,6 +41,7 @@ def anime_hayai_checker(info):
 
 def four_anime_to_checker(info):
     """https://4anime.to/"""
+
     def ep():
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
@@ -50,6 +54,7 @@ def four_anime_to_checker(info):
 
 def kissanimes_tv_checker(info):
     """https://kissanimes.tv/"""
+
     def ep():
         r = requests.get(info['url'], headers=gv.headers)
         soup = BeautifulSoup(r.text, 'lxml')
@@ -61,12 +66,28 @@ def kissanimes_tv_checker(info):
 
 def youtube_playlist_checker(info):
     """https://www.youtube.com/playlist?list={list_id}"""
+
     def ep():
         r = requests.get(info['url'], headers=gv.headers)
         video_ids = [each.split('"')[0] for each in r.text.split('"videoId":"')][1:-3]  # 3 duplicates of each id
-        return len(video_ids)//3, f"https://www.youtube.com/watch?v={video_ids[-1]}&{info['url'].split('list=')[1]}"
+        return len(video_ids) // 3, f"https://www.youtube.com/watch?v={video_ids[-1]}&{info['url'].split('list=')[1]}"
 
     return compare(ep, info)
+
+
+def crunchyroll_checker(info):
+    """https://www.crunchyroll.com/{anime-name}"""
+
+    def ep():
+        scraper = cloudscraper.create_scraper()
+        r = scraper.get(info['url'])
+        s = BeautifulSoup(r.text, 'lxml')
+        last_ep = s.find('div', {"class": "wrapper container-shadow hover-classes",
+                                 "data-classes": "container-shadow-dark"}).find('a')
+        return int(last_ep.text.split("Episode ")[1].split()[0]), "https://www.crunchyroll.com" + last_ep['href']
+
+    return compare(ep, info)
+
 
 # ______________________________________________________________________________________________________________________
 
