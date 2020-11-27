@@ -23,7 +23,7 @@ def four_anime_to_checker(url):
     r = requests.get(url, headers=gv.headers)
     soup = BeautifulSoup(r.text, 'lxml')
     eps = soup.find('ul', {'class': "episodes range active"}).find_all('li')
-    return len(eps), eps[0].a['href']
+    return len(eps), eps[-1].a['href']
 
 
 def kissanimes_tv_checker(url):
@@ -212,7 +212,7 @@ def compare(checker, info):
             return CompareResult(info['url'], title, current_ep)
         else:
             if saved_ep != current_ep:
-                return CompareResult(info['url'], current_ep, title, current_link, saved_ep)
+                return CompareResult(info['url'], title, current_ep, current_link, saved_ep)
             else:
                 return None
 
