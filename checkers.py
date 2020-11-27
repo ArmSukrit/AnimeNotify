@@ -111,6 +111,18 @@ def anime_sugoi_checker(info):
     return compare(ep, info)
 
 
+def fairyanime_checker(info):
+    """https://fairyanime.com/{anime_title}/"""
+
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        s = BeautifulSoup(r.text, 'lxml')
+        eps = s.find('table', class_="table table-hover table-episode").find_all('tr')
+        return len(eps), eps[-1].td.a['href']
+
+    return compare(ep, info)
+
+
 # ______________________________________________________________________________________________________________________
 
 

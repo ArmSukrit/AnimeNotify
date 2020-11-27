@@ -7,7 +7,7 @@ from time import sleep
 import global_var as gv
 from utils import wait_for_internet, wait_key, restart
 from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker, \
-    crunchyroll_checker, anime_master_checker, anime_sugoi_checker
+    crunchyroll_checker, anime_master_checker, anime_sugoi_checker, fairyanime_checker
 
 # each key of checkers dict is something common across urls from the same website
 installed_checkers = {
@@ -18,6 +18,7 @@ installed_checkers = {
     "crunchyroll": crunchyroll_checker,
     "anime-master": anime_master_checker,
     "anime-sugoi": anime_sugoi_checker,
+    "fairyanime": fairyanime_checker,
 }
 
 
@@ -113,8 +114,7 @@ def check(info):
     for key in installed_checkers.keys():
         if key in url:
             return installed_checkers[key](info)  # call a specific checker based on key
-    print(f"cannot find any key that matches with {url}.\n"
-          f"make sure to install the checker for this website. See installed_checkers in main.py\n")
+    print(f"Checker for {url} is not found.\n")
     return None
 
 
