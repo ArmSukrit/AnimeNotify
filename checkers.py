@@ -58,12 +58,26 @@ def kissanimes_tv_checker(info):
 
     return compare(ep, info)
 
+
+def youtube_playlist_checker(info):
+    """https://www.youtube.com/playlist?list={list_id}"""
+    def ep():
+        r = requests.get(info['url'], headers=gv.headers)
+        video_ids = [each.split('"')[0] for each in r.text.split('"videoId":"')][1:-3]  # 3 duplicates of each id
+        return len(video_ids)//3, f"https://www.youtube.com/watch?v={video_ids[-1]}&{info['url'].split('list=')[1]}"
+
+    return compare(ep, info)
+
 # ______________________________________________________________________________________________________________________
 
 
 def compare(ep_function, info):
     """return CompareResult if found new ep or saved info['ep'] is None, else None"""
-    current_ep, current_link = ep_function()
+    try:
+        current_ep, current_link = ep_function()
+    except:
+        print(f"cannot check {info['title']}, ({info['url']})")
+        return None
     saved_ep = info['ep']
     title = info['title']
     if saved_ep is None:

@@ -5,12 +5,13 @@ from time import sleep
 import requests
 
 
-from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker
+from checkers import anime_hayai_checker, four_anime_to_checker, kissanimes_tv_checker, youtube_playlist_checker
 # each key of checkers dict is something common across urls from the same website
 installed_checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
     "kissanimes.tv": kissanimes_tv_checker,
+    "youtube": youtube_playlist_checker,
 }
 import global_var as gv
 
