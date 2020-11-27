@@ -4,8 +4,7 @@ import os
 import sys
 from time import sleep
 
-import global_var as gv
-from utils import wait_for_internet, wait_key, restart
+from utils import wait_for_internet, wait_key, restart, compare
 
 # This bot compares the number of specific html elements against the number in save file and can optionally
 # returns the href of the latest element
