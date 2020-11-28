@@ -35,6 +35,8 @@ installed_checkers = {
     "animefreak": animefreak_checker,
     "chia-anime": chia_anime_checker,
     "boss-anime": boss_anime_checker,
+    "animeseesan": animeseesan_checker,
+    "pokemon-th": pokemon_th_checker,
 }
 # ----------------------------------------------------------------------------------------------------------------------
 

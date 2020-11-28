@@ -8,7 +8,7 @@ import global_var as gv
 # define checkers here, then install in main.py ------------------------------------------------------------------------
 
 def anime_hayai_checker(url):
-    """http://anime-hayai.com/{id}/"""
+    """ http://anime-hayai.com/{id}/ """
 
     r = requests.get(url, headers=gv.headers)
     soup = BeautifulSoup(r.text, 'lxml')
@@ -18,7 +18,7 @@ def anime_hayai_checker(url):
 
 
 def four_anime_to_checker(url):
-    """https://4anime.to/{category/{title}"""
+    """ https://4anime.to/{category}/{title} """
 
     r = requests.get(url, headers=gv.headers)
     soup = BeautifulSoup(r.text, 'lxml')
@@ -27,7 +27,7 @@ def four_anime_to_checker(url):
 
 
 def kissanimes_tv_checker(url):
-    """https://kissanimes.tv/category/{title}"""
+    """ https://kissanimes.tv/category/{title} """
 
     r = requests.get(url, headers=gv.headers)
     soup = BeautifulSoup(r.text, 'lxml')
@@ -36,7 +36,7 @@ def kissanimes_tv_checker(url):
 
 
 def youtube_playlist_checker(url):
-    """https://www.youtube.com/playlist?list={list_id}"""
+    """ https://www.youtube.com/playlist?list={list_id} """
 
     r = requests.get(url, headers=gv.headers)
     video_ids = [each.split('"')[0] for each in r.text.split('"videoId":"')][1:-3]  # 3 duplicates of each id
@@ -44,7 +44,7 @@ def youtube_playlist_checker(url):
 
 
 def crunchyroll_checker(url):
-    """https://www.crunchyroll.com/{title}"""
+    """ https://www.crunchyroll.com/{title} """
 
     # use this object to bypass cloudflare's bot protection (inherited from requests.Session)
     scraper = cloudscraper.create_scraper()
@@ -56,7 +56,7 @@ def crunchyroll_checker(url):
 
 
 def anime_master_checker(url):
-    """https://anime-master.com/{title}/"""
+    """ https://anime-master.com/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -65,7 +65,7 @@ def anime_master_checker(url):
 
 
 def anime_sugoi_checker(url):
-    """https://www.anime-sugoi.com/{id}/"""
+    """ https://www.anime-sugoi.com/{id}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -74,7 +74,7 @@ def anime_sugoi_checker(url):
 
 
 def fairyanime_checker(url):
-    """https://fairyanime.com/{title}/"""
+    """ https://fairyanime.com/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -83,7 +83,7 @@ def fairyanime_checker(url):
 
 
 def animekimi_checker(url):
-    """https://animekimi.com/{category}/{title}/"""
+    """ https://animekimi.com/{category}/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -92,7 +92,7 @@ def animekimi_checker(url):
 
 
 def anime_kimuchi_checker(url):
-    """https://anime-kimuchi.com/{year}/{month}/{day}/{title}/"""
+    """ https://anime-kimuchi.com/{year}/{month}/{day}/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -101,7 +101,7 @@ def anime_kimuchi_checker(url):
 
 
 def anime_teri_checker(url):
-    """https://www.anime-teri.com/{id}/{title}"""
+    """ https://www.anime-teri.com/{id}/{title} """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -110,7 +110,7 @@ def anime_teri_checker(url):
 
 
 def akaanime_checker(url):
-    """https://akaanime.com/{category}/{id}"""
+    """ https://akaanime.com/{category}/{id} """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -119,7 +119,7 @@ def akaanime_checker(url):
 
 
 def hereanime_checker(url):
-    """https://hereanime.com/{title}"""
+    """ https://hereanime.com/{title} """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -128,7 +128,7 @@ def hereanime_checker(url):
 
 
 def anime_i_checker(url):
-    """https://anime-i.com/{title}/"""
+    """ https://anime-i.com/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -137,7 +137,7 @@ def anime_i_checker(url):
 
 
 def mio_anime_checker(url):
-    """https://www.mio-anime.com/{??}/{???}/"""
+    """ https://www.mio-anime.com/{??}/{???}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -146,7 +146,7 @@ def mio_anime_checker(url):
 
 
 def gg_anime_checker(url):
-    """https://www.gg-anime.com/{title}/"""
+    """ https://www.gg-anime.com/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -155,7 +155,7 @@ def gg_anime_checker(url):
 
 
 def shibaanime_checker(url):
-    """https://www.shibaanime.com/anime/{id}"""
+    """ https://www.shibaanime.com/anime/{id} """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -164,7 +164,7 @@ def shibaanime_checker(url):
 
 
 def animelizm_checker(url):
-    """https://www.animelizm.com/{title}/"""
+    """ https://www.animelizm.com/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -173,7 +173,7 @@ def animelizm_checker(url):
 
 
 def i_movie_hd_checker(url):
-    """https://www.i-moviehd.com/{title}/"""
+    """ https://www.i-moviehd.com/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -182,7 +182,7 @@ def i_movie_hd_checker(url):
 
 
 def gogoanime_checker(url):
-    """https://gogoanime.so/category/{title}"""
+    """ https://gogoanime.so/category/{title} """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -191,7 +191,7 @@ def gogoanime_checker(url):
 
 
 def animefreak_checker(url):
-    """https://www.animefreak.tv/watch/{title}"""
+    """ https://www.animefreak.tv/watch/{title} """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -200,7 +200,7 @@ def animefreak_checker(url):
 
 
 def chia_anime_checker(url):
-    """http://www.chia-anime.me/episode/{title}/"""
+    """ http://www.chia-anime.me/episode/{title}/ """
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
@@ -211,7 +211,25 @@ def chia_anime_checker(url):
 def boss_anime_checker(url):
     """ https://boss-anime.com/anime/{title}/ """
 
-    r = requests.get(url, headers=gv.headers)  # try to get requests
+    r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find('table', class_="table table-dark table-bordered table-hover text-center text-white").find_all('a')
     return len(eps), eps[-1]['href']
+
+
+def animeseesan_checker(url):
+    """ https://animeseesan.com/{title} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', id="content").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def pokemon_th_checker(url):
+    """ https://www.pokemon-th.com/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="entry-content entry content").find_all('p')[3:]
+    return len(eps), eps[-1].a['href']

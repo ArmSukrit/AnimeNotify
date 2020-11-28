@@ -62,6 +62,9 @@ def restart(fp, py_executable="python"):
 
 
 def install(key, checker_name, url_structure, checker):
+    if not (key and checker_name and url_structure):
+        print("You need to provide key, checker name, url structure and checker function")
+        return
     from main import installed_checkers
     if key in installed_checkers:
         print(f"Found existing key, {key}, already installed")
