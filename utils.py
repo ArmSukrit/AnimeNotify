@@ -62,12 +62,20 @@ def restart(fp, py_executable="python"):
 
 
 def install(key, checker_name, url_structure, checker):
-    _install_at_main(key, checker_name, checker)
-    _install_at_checkers(checker_name, url_structure, checker)
-    print(f"Installed {checker_name} with key={key} successfully.")
+    from main import installed_checkers
+    if key in installed_checkers:
+        print(f"Found existing key, {key}, already installed")
+        return
+    if checker_name in [f.__name__ for f in installed_checkers.values()]:
+        print(f"Found existing checker.__name__, {checker_name}, already installed")
+        return
+    installed_checkers[key] = checker
+    _install_at_main(key, checker_name, installed_checkers)
+    _install_at_checkers(checker_name, url_structure)
+    print(f"Installed {checker_name} with key='{key}' successfully.")
 
 
-def _install_at_checkers(checker_name, url_structure, checker):
+def _install_at_checkers(checker_name, url_structure):
     with open('test.py', 'r') as f:
         lines = f.readlines()
 
@@ -90,7 +98,7 @@ def _install_at_checkers(checker_name, url_structure, checker):
         f.write(codes)
 
 
-def _install_at_main(key, checker_name, checker):
+def _install_at_main(key, checker_name, installed_checkers):
 
     def create_checker_str(checkers):
         string = "installed_checkers = {\n"
@@ -101,9 +109,6 @@ def _install_at_main(key, checker_name, checker):
                 string += f'    "{web_key}": {func.__name__},\n'
         string += "}\n"
         return string
-
-    from main import installed_checkers
-    installed_checkers[key] = checker
 
     # replace old literal codes with new codes
     with open(main_file, 'r') as f:
