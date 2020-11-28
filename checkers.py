@@ -206,3 +206,12 @@ def chia_anime_checker(url):
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find('div', id="countrydivcontainer").find_all('h3', itemprop="episodeNumber")
     return len(eps), eps[0].a['href']
+
+
+def boss_anime_checker(url):
+    """ https://boss-anime.com/anime/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)  # try to get requests
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('table', class_="table table-dark table-bordered table-hover text-center text-white").find_all('a')
+    return len(eps), eps[-1]['href']

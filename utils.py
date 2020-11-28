@@ -64,6 +64,7 @@ def restart(fp, py_executable="python"):
 def install(key, checker_name, url_structure, checker):
     _install_at_main(key, checker_name, checker)
     _install_at_checkers(checker_name, url_structure, checker)
+    print(f"Installed {checker_name} with key={key} successfully.")
 
 
 def _install_at_checkers(checker_name, url_structure, checker):
