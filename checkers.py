@@ -233,3 +233,198 @@ def pokemon_th_checker(url):
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find('div', class_="entry-content entry content").find_all('p')[3:]
     return len(eps), eps[-1].a['href']
+
+
+def anime_thai_checker(url):
+    """ https://anime-thai.com/{id}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="episode").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def ok_anime_checker(url):
+    """ https://ok-anime.com/{id?}/{title} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', id="content").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def king_anime_checker(url):
+    """ https://www.king-anime.com/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = [e for e in s.find('tbody').find_all('a') if "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸²" not in e.text]
+    return len(eps), eps[0]['href']
+
+
+def animelolo_checker(url):
+    """ https://www.animelolo.com/{id}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = []
+    for e in s.find_all('div', class_="panel-body")[2].find_all('p'):
+        if not e.find('a'):
+            break
+        eps.append(e)
+    return len(eps), eps[-1].a['href']
+
+
+def anime_gg_checker(url):
+    """ https://www.anime-gg.com/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="mpPostList mp-group-1543").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def one23_hd_checker(url):
+    """ https://www.123-hd.com/{title}-ep-{valid_ep} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('table', id="Sequel").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def neko_miku_checker(url):
+    """ https://neko-miku.com/{id}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="anime-list").find_all('a')
+    return len(eps), "https://neko-miku.com" + eps[-1]['href']
+
+
+def cat2auto_checker(url):
+    """ https://cat2auto.com/m/{id} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find_all('div', class_="button-list")[1].find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def animeindy_checker(url):
+    """ https://www.animeindy.com/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="mpPostList mp-group-612").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def do_anime_checker(url):
+    """ https://do-anime.com/{id}/{title?} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = [e.a for e in s.find('div', class_="col-md-12 br_top").find(
+        'div', class_="text-center").div.find_all('p')]
+    return len(eps), eps[-1]['href']
+
+
+def dutoon_checker(url):
+    """ https://dutoon.com/{category}/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('ul', class_="episodios").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def animemala_checker(url):
+    """ https://animemala.com/{id}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = [p.a for p in s.find('div', class_="panel-body").find_all('p') if p.a is not None]
+    return len(eps), eps[-1]['href']
+
+
+def anifume_checker(url):
+    """ https://anifume.com/{id} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="post-content").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def merlin_anime_checker(url):
+    """ https://merlin-anime.com/{category}/{id}/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="panel-body").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def ki_anime_checker(url):
+    """ https://ki-anime.com/{id}/{title} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', id="content").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def cartoonsubthai_checker(url):
+    """ https://www.cartoonsubthai.com/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = [tr.find('a') for tr in s.find('table', class_="table table-bordered table-hover").find(
+        "tbody").find_all('tr') if "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸²" not in str(tr)]
+    return len(eps), eps[0]['href']
+
+
+def anime_suba_checker(url):
+    """ https://www.anime-suba.com/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = [a for a in s.find('div', class_="img01").find_all('a') if "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸²" not in a.text]
+    return len(eps), eps[-1]['href']
+
+
+def otaame_checker(url):
+    """ https://otaame.com/{id}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = [p.a for p in s.find_all('div', class_="panel-body")[3].find_all('p') if p.a is not None]
+    return len(eps), eps[-1]['href']
+
+
+def animelucky_checker(url):
+    """ https://animelucky.com/name/{id}/{title}.html """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', style="padding: 20px;font-size: 16px;").find_all('a')
+    return len(eps), "https://animelucky.com" + eps[-1]['href']
+
+
+def anime_hub_checker(url):
+    """ https://www.anime-hub.com/{id}/{title} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', class_="text-center").div.find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def animehdzero_checker(url):
+    """ https://www.animehdzero.com/catagory/{id} """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find_all('div', style="text-align:center;")[1].find_all('a')
+    return len(eps), eps[-1]['href']
