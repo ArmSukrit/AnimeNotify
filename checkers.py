@@ -40,7 +40,7 @@ def youtube_playlist_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     video_ids = [each.split('"')[0] for each in r.text.split('"videoId":"')][1:-3]  # 3 duplicates of each id
-    return len(video_ids) // 3, f"https://www.youtube.com/watch?v={video_ids[-1]}&{url.split('list=')[1]}"
+    return len(video_ids) // 3, f"https://www.youtube.com/watch?v={video_ids[-1]}&list={url.split('list=')[1]}"
 
 
 def crunchyroll_checker(url):
