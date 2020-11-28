@@ -34,7 +34,6 @@ installed_checkers = {
     "gogoanime": gogoanime_checker,
     "animefreak": animefreak_checker,
     "chia-anime": chia_anime_checker,
-
 }
 # ----------------------------------------------------------------------------------------------------------------------
 

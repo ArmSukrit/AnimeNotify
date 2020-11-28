@@ -206,4 +206,3 @@ def chia_anime_checker(url):
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find('div', id="countrydivcontainer").find_all('h3', itemprop="episodeNumber")
     return len(eps), eps[0].a['href']
-

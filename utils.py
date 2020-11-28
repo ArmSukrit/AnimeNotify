@@ -1,8 +1,9 @@
-import sys
 import os
 import requests
 import sys
 
+main_file = "main.py"
+checkers_file = "checkers.py"
 
 def wait_for_internet(prompt=None):
     printed_once = False
@@ -58,6 +59,69 @@ def restart(fp, py_executable="python"):
     """restart the caller python script of this func"""
     os.system(f"{py_executable} {fp}")
     exit(0)
+
+
+def install(key, checker_name, url_structure, checker):
+    _install_at_main(key, checker_name, checker)
+    _install_at_checkers(checker_name, url_structure, checker)
+
+
+def _install_at_checkers(checker_name, url_structure, checker):
+    with open('test.py', 'r') as f:
+        lines = f.readlines()
+
+    first = 0
+    last = 0
+    for i, line in enumerate(lines):
+        if "def checker(url):" in line:
+            first = i + 1
+        if "return" in line:
+            last = i + 1
+            break
+    raw_def_lines = [f"def {checker_name}(url):\n", f'    """ {url_structure} """\n\n']
+    raw_def_lines.extend(lines[first:last])
+    refined_def_lines = [line for line in raw_def_lines if '    #' not in line and line != '\n']
+
+    with open(checkers_file, 'r', encoding='utf8') as a:
+        codes = a.read()
+    with open(checkers_file, 'w', encoding='utf8') as f:
+        codes += "\n\n" + ''.join(refined_def_lines)
+        f.write(codes)
+
+
+def _install_at_main(key, checker_name, checker):
+
+    def create_checker_str(checkers):
+        string = "installed_checkers = {\n"
+        for web_key, func in checkers.items():
+            if web_key == key:
+                string += f'    "{web_key}": {checker_name},\n'
+            else:
+                string += f'    "{web_key}": {func.__name__},\n'
+        string += "}\n"
+        return string
+
+    from main import installed_checkers
+    installed_checkers[key] = checker
+
+    # replace old literal codes with new codes
+    with open(main_file, 'r') as f:
+        lines = f.readlines()
+    first_line_index = 0
+    last_line_index = 0
+    for i, line in enumerate(lines):
+        if "from checkers import *" in line:
+            first_line_index = i + 1
+        if '}' in line:
+            last_line_index = i + 1
+            break
+
+    checker_str = create_checker_str(installed_checkers)
+    new_code_lines = lines[:first_line_index]
+    new_code_lines.append(checker_str)
+    new_code_lines.extend(lines[last_line_index:])
+    with open(main_file, 'w') as f:
+        f.writelines(new_code_lines)
 
 
 def compare(checker, info):
