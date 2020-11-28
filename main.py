@@ -31,6 +31,10 @@ installed_checkers = {
     "shibaanime": shibaanime_checker,
     "animelizm": animelizm_checker,
     "i-moviedhd": i_movie_hd_checker,
+    "gogoanime": gogoanime_checker,
+    "animefreak": animefreak_checker,
+    "chia-anime": chia_anime_checker,
+
 }
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -117,7 +121,7 @@ def report_duplicates(duplicates):
 def check(info):
     """
     :param info: list of dict
-    :return: checkers.CompareResult if found new ep else None
+    :return: CompareResult if found new ep else None
     """
 
     url = info['url']
