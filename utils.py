@@ -79,7 +79,7 @@ def install(key, checker_name, url_structure, checker):
 
 
 def _install_at_checkers(checker_name, url_structure):
-    with open('test.py', 'r') as f:
+    with open('test.py', 'r', encoding='utf8') as f:
         lines = f.readlines()
 
     first = 0
@@ -114,7 +114,7 @@ def _install_at_main(key, checker_name, installed_checkers):
         return string
 
     # replace old literal codes with new codes
-    with open(main_file, 'r') as f:
+    with open(main_file, 'r', encoding='utf8') as f:
         lines = f.readlines()
     first_line_index = 0
     last_line_index = 0
@@ -129,7 +129,7 @@ def _install_at_main(key, checker_name, installed_checkers):
     new_code_lines = lines[:first_line_index]
     new_code_lines.append(checker_str)
     new_code_lines.extend(lines[last_line_index:])
-    with open(main_file, 'w') as f:
+    with open(main_file, 'w', encoding='utf8') as f:
         f.writelines(new_code_lines)
 
 

@@ -40,7 +40,8 @@ def youtube_playlist_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     video_ids = [each.split('"')[0] for each in r.text.split('"videoId":"')][1:-3]  # 3 duplicates of each id
-    return len(video_ids) // 3, f"https://www.youtube.com/watch?v={video_ids[-1]}&list={url.split('list=')[1]}"
+    return len(video_ids) // 3, f"https://www.youtube.com/watch?v={video_ids[-1]}&list=" \
+                                f"{url.split('list=')[1].split('&')[0]}"
 
 
 def crunchyroll_checker(url):
@@ -258,7 +259,7 @@ def king_anime_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [e for e in s.find('tbody').find_all('a') if "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸²" not in e.text]
+    eps = [e for e in s.find('tbody').find_all('a') if "ยังไม่มา" not in e.text]
     return len(eps), eps[0]['href']
 
 
@@ -381,7 +382,7 @@ def cartoonsubthai_checker(url):
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
     eps = [tr.find('a') for tr in s.find('table', class_="table table-bordered table-hover").find(
-        "tbody").find_all('tr') if "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸²" not in str(tr)]
+        "tbody").find_all('tr') if "ยังไม่มา" not in str(tr)]
     return len(eps), eps[0]['href']
 
 
@@ -390,7 +391,8 @@ def anime_suba_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [a for a in s.find('div', class_="img01").find_all('a') if "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸²" not in a.text]
+    eps = [a for a in s.find('div', class_="img01").find_all('a')
+           if "ยังไม่มา" not in a.text and "รวมเรื่อง" not in a.text and "คลิกที่นี่" not in a.text]
     return len(eps), eps[-1]['href']
 
 
