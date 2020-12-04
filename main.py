@@ -7,7 +7,7 @@ from time import sleep
 from utils import wait_for_internet, wait_key, restart, compare
 
 # This bot compares the number of specific html elements against the number in save file and can optionally
-# returns the href of the latest element
+# return the link to the latest ep
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
@@ -58,6 +58,8 @@ installed_checkers = {
     "animelucky.com": animelucky_checker,
     "anime-hub": anime_hub_checker,
     "animehdzero": animehdzero_checker,
+    "xn--12c1ca5a8bpx4a4bxe": doo_anime_sanook_checker,
+    "anime-daisuki.net": anime_daisuki_net_checker,
 }
 # ----------------------------------------------------------------------------------------------------------------------
 

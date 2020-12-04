@@ -430,3 +430,21 @@ def animehdzero_checker(url):
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find_all('div', style="text-align:center;")[1].find_all('a')
     return len(eps), eps[-1]['href']
+
+
+def doo_anime_sanook_checker(url):
+    """ https://www.xn--12c1ca5a8bpx4a4bxe.com/movies/{title}/ (ดูอนิเมะสนุก.com) """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find('div', itemprop="description", class_="wp-content").find_all('a')
+    return len(eps), eps[-1]['href']
+
+
+def anime_daisuki_net_checker(url):
+    """ https://anime-daisuki.net/{year}/{month}/{day}/{title}/ """
+
+    r = requests.get(url, headers=gv.headers)
+    s = BeautifulSoup(r.text, 'lxml')
+    eps = s.find_all('div', id="post-131940")[0].find_all('p')[3:-1]
+    return len(eps), eps[-1].a['href']
