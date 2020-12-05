@@ -46,7 +46,7 @@ def wait_key(prompt=None, end='\n'):
         finally:
             termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
 
-    return result
+    return result if type(result) == str else result.decode('utf-8')
 
 
 def see_in_browser(html_text, file="test.html"):

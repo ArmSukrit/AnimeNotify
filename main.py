@@ -80,7 +80,6 @@ def main():
     if results:
         save(results)
         report(results)
-        wait_key("Press any key to exit...")
     else:
         print("No update is found.")
         sleep(3)
@@ -190,14 +189,40 @@ def report(results):
     """return True if printed something in terminal else False"""
 
     printed_once = False
-    for result in results:
+    links = []
+    for i, result in enumerate(results, 1):
         if result.is_found():
+            links.append(result.current_link)
             if not printed_once:
                 print("New update(s)")
                 printed_once = True
-            print(f"- {result.title}, ep {result.current_ep}, {result.current_link}")
-    if printed_once:
-        print()
+            print(f"{i}: {result.title} ep {result.current_ep}")
+
+    print("\nPress")
+    cmd = "start chrome "
+    if len(links) == 1:
+        key = wait_key("'A' to open in browser,\nelse to exit.").lower()
+        if key == 'a':
+            os.system(cmd + ''.join(links[0]))
+    else:
+        key = wait_key("'S' to select and open in Browser,\n'A' to open All,\nelse to exit.").lower()
+        if key == 's':
+            print("Enter number or press X to exit.")
+            while True:
+                if len(links) >= 10:
+                    n = input("Number: ").strip()
+                else:
+                    n = wait_key("Number: ", end='').strip()
+                    print(n)
+                if n.lower() == 'x':
+                    break
+                try:
+                    os.system(cmd + links[int(n) - 1])
+                except IndexError and TypeError and ValueError:
+                    print(f"Only 1 through {len(results)} or 'X'")
+        if key == 'a':
+            os.system(cmd + ' '.join(links))
+
     return printed_once
 
 
