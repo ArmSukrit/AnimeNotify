@@ -1,11 +1,15 @@
 import os
 import requests
 import sys
+if os.name == 'nt':
+    import msvcrt
+else:
+    import termios
 
-main_file = "main.py"
-checkers_file = "checkers.py"
+from global_var import main_file, checkers_file
 
-def wait_for_internet(prompt=None):
+
+def wait_for_internet(prompt="Waiting for internet...", cls=True):
     printed_once = False
     while True:
         try:
@@ -16,22 +20,21 @@ def wait_for_internet(prompt=None):
                     print(prompt)
                     printed_once = True
         else:
-            os.system("cls")
+            if cls:
+                os.system("cls")
             break
 
 
 def wait_key(prompt=None, end='\n'):
-    """ Wait for a key press on the console and return it. """
+    """ Wait for a key press on the console and return it as str type. """
 
     if prompt:
         print(prompt, end=end)
 
     result = None
     if os.name == 'nt':
-        import msvcrt
         result = msvcrt.getch()
     else:
-        import termios
         fd = sys.stdin.fileno()
 
         oldterm = termios.tcgetattr(fd)

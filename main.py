@@ -203,16 +203,16 @@ def report(results):
     if len(links) == 1:
         key = wait_key("'A' to open in browser,\nelse to exit.").lower()
         if key == 'a':
-            os.system(cmd + ''.join(links[0]))
+            os.system(cmd + links[0])
     else:
-        key = wait_key("'S' to select and open in Browser,\n'A' to open All,\nelse to exit.").lower()
+        key = wait_key("'S' to select and open in Browser,\n'A' to open All,\nelse to exit.\n").lower()
         if key == 's':
-            print("Enter number or press X to exit.")
+            print("Enter number to open, enter 'X' to exit.")
             while True:
                 if len(links) >= 10:
-                    n = input("Number: ").strip()
+                    n = input("> ").strip()
                 else:
-                    n = wait_key("Number: ", end='').strip()
+                    n = wait_key("> ", end='').strip()
                     print(n)
                 if n.lower() == 'x':
                     break
