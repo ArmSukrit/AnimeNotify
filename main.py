@@ -197,33 +197,47 @@ def report(results):
                 print("New update(s)")
                 printed_once = True
             print(f"{i}: {result.title} ep {result.current_ep}")
+    print()
 
-    print("\nPress")
-    cmd = "start chrome "
+    cmd = "start "
     if len(links) == 1:
-        key = wait_key("'A' to open in browser,\nelse to exit.").lower()
-        if key == 'a':
+        if wait_key("Press\n'A' to open in browser,\nelse to exit.\n> ", end='').lower() == 'a':
             os.system(cmd + links[0])
     else:
-        key = wait_key("'S' to select and open in Browser,\n'A' to open All,\nelse to exit.\n").lower()
-        if key == 's':
-            print("Enter number to open, enter 'X' to exit.")
-            while True:
-                if len(links) >= 10:
-                    n = input("> ").strip()
-                else:
-                    n = wait_key("> ", end='').strip()
-                    print(n)
-                if n.lower() == 'x':
-                    break
-                try:
-                    os.system(cmd + links[int(n) - 1])
-                except IndexError and TypeError and ValueError:
-                    print(f"Only 1 through {len(results)} or 'X'")
-        if key == 'a':
-            os.system(cmd + ' '.join(links))
+        print("Enter selected number to open via browser,\n'A' to open All,\nelse to exit.")
+        while True:
+            if len(links) >= 10:
+                n = input("> ").strip()
+            else:
+                n = wait_key("> ", end='').strip().lower()
+                print(n)
+            if not selectively_open(n, links, cmd):  # did not open at least one (entered in an exit key)
+                break
 
     return printed_once
+
+
+def selectively_open(n, links, cmd):
+    """" open selected or open all via default browser
+        return True if entered 'A', 'a', or a number else False """
+
+    if n == 'a':  # open all
+        for link in links:
+            os.system(cmd + link)
+        return True
+    else:  # open selected
+        try:
+            n = int(n)
+        except ValueError:  # entered non-number
+            return False
+        else:
+            try:
+                os.system(cmd + links[n - 1])
+            except IndexError:  # entered a number but not good
+                print(f"Only 1 through {len(links)}, 'A' or else")
+                return True  # because entered a number
+            else:
+                return True
 
 
 if __name__ == '__main__':
