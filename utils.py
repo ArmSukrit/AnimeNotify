@@ -73,7 +73,8 @@ def install(key, checker_name, url_structure, checker):
         print(f"Found existing key, {key}, already installed")
         return
     if checker_name in [f.__name__ for f in installed_checkers.values()]:
-        print(f"Found existing checker.__name__, {checker_name}, already installed")
+        print(
+            f"Found existing checker.__name__, {checker_name}, already installed")
         return
     installed_checkers[key] = checker
     _install_at_main(key, checker_name, installed_checkers)
@@ -93,9 +94,11 @@ def _install_at_checkers(checker_name, url_structure):
         if "return" in line:
             last = i + 1
             break
-    raw_def_lines = [f"def {checker_name}(url):\n", f'    """ {url_structure} """\n\n']
+    raw_def_lines = [
+        f"def {checker_name}(url):\n", f'    """ {url_structure} """\n\n']
     raw_def_lines.extend(lines[first:last])
-    refined_def_lines = [line for line in raw_def_lines if '    #' not in line and line != '\n']
+    refined_def_lines = [
+        line for line in raw_def_lines if '    #' not in line and line != '\n']
 
     with open(checkers_file, 'r', encoding='utf8') as a:
         codes = a.read()
@@ -155,7 +158,8 @@ def compare(checker, info):
               "Enter to exit\n")
         exit(1)
     except:
-        print(f"cannot check {info['title']}, ({info['url']}) checker = {checker.__name__}")
+        print(
+            f"cannot check {info['title']}, ({info['url']}) checker = {checker.__name__}")
         return None
     else:
         saved_ep = info['ep']

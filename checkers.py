@@ -7,6 +7,7 @@ import global_var as gv
 # Each checker function needs to return int(all eps on website), str(link to latest ep)
 # define checkers here, then install in main.py ------------------------------------------------------------------------
 
+
 def anime_hayai_checker(url):
     """ http://anime-hayai.com/{id}/ """
 
@@ -39,7 +40,8 @@ def youtube_playlist_checker(url):
     """ https://www.youtube.com/playlist?list={list_id} """
 
     r = requests.get(url, headers=gv.headers)
-    video_ids = [each.split('"')[0] for each in r.text.split('"videoId":"')][1:-3]  # 3 duplicates of each id
+    video_ids = [each.split('"')[0] for each in r.text.split(
+        '"videoId":"')][1:-3]  # 3 duplicates of each id
     return len(video_ids) // 3, f"https://www.youtube.com/watch?v={video_ids[-1]}&list=" \
                                 f"{url.split('list=')[1].split('&')[0]}"
 
@@ -61,7 +63,8 @@ def anime_master_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = s.find('table', class_="table table-hover table-bordered").find_all('a')
+    eps = s.find(
+        'table', class_="table table-hover table-bordered").find_all('a')
     return len(eps), eps[-1]['href']
 
 
@@ -79,7 +82,8 @@ def fairyanime_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = s.find('table', class_="table table-hover table-episode").find_all('tr')
+    eps = s.find(
+        'table', class_="table table-hover table-episode").find_all('tr')
     return len(eps), eps[-1].td.a['href']
 
 
@@ -97,7 +101,8 @@ def anime_kimuchi_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = s.find('div', id="post-131801").find_all('div', {'class': 'post-body'})[1].find_all('a')
+    eps = s.find('div', id="post-131801").find_all('div',
+                                                   {'class': 'post-body'})[1].find_all('a')
     return len(eps), eps[-1]['href']
 
 
@@ -133,7 +138,8 @@ def anime_i_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [each for each in s.find('div', class_="links").find_all('a') if "hist-content" in str(each)]
+    eps = [each for each in s.find('div', class_="links").find_all(
+        'a') if "hist-content" in str(each)]
     return len(eps), url + eps[-1]['href'][1:]
 
 
@@ -151,7 +157,8 @@ def gg_anime_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [each for each in s.find_all('h3') if 'href="https://www.anime-gg.com/watch/' in str(each)]
+    eps = [each for each in s.find_all(
+        'h3') if 'href="https://www.anime-gg.com/watch/' in str(each)]
     return len(eps), eps[-1].span.a['href']
 
 
@@ -205,7 +212,8 @@ def chia_anime_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = s.find('div', id="countrydivcontainer").find_all('h3', itemprop="episodeNumber")
+    eps = s.find('div', id="countrydivcontainer").find_all(
+        'h3', itemprop="episodeNumber")
     return len(eps), eps[0].a['href']
 
 
@@ -214,7 +222,8 @@ def boss_anime_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = s.find('table', class_="table table-dark table-bordered table-hover text-center text-white").find_all('a')
+    eps = s.find(
+        'table', class_="table table-dark table-bordered table-hover text-center text-white").find_all('a')
     return len(eps), eps[-1]['href']
 
 
@@ -259,7 +268,8 @@ def king_anime_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [e for e in s.find('tbody').find_all('a') if "ยังไม่มา" not in e.text]
+    eps = [e for e in s.find('tbody').find_all(
+        'a') if "ยังไม่มา" not in e.text]
     return len(eps), eps[0]['href']
 
 
@@ -345,7 +355,8 @@ def animemala_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [p.a for p in s.find('div', class_="panel-body").find_all('p') if p.a is not None]
+    eps = [p.a for p in s.find(
+        'div', class_="panel-body").find_all('p') if p.a is not None]
     return len(eps), eps[-1]['href']
 
 
@@ -401,7 +412,8 @@ def otaame_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = [p.a for p in s.find_all('div', class_="panel-body")[3].find_all('p') if p.a is not None]
+    eps = [p.a for p in s.find_all(
+        'div', class_="panel-body")[3].find_all('p') if p.a is not None]
     return len(eps), eps[-1]['href']
 
 
@@ -437,7 +449,8 @@ def doo_anime_sanook_checker(url):
 
     r = requests.get(url, headers=gv.headers)
     s = BeautifulSoup(r.text, 'lxml')
-    eps = s.find('div', itemprop="description", class_="wp-content").find_all('a')
+    eps = s.find('div', itemprop="description",
+                 class_="wp-content").find_all('a')
     return len(eps), eps[-1]['href']
 
 

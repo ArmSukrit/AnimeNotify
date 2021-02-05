@@ -11,6 +11,7 @@ from utils import wait_for_internet, wait_key, restart, compare
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
+
 installed_checkers = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
@@ -61,6 +62,8 @@ installed_checkers = {
     "xn--12c1ca5a8bpx4a4bxe": doo_anime_sanook_checker,
     "anime-daisuki.net": anime_daisuki_net_checker,
 }
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 
 def main():
@@ -74,7 +77,8 @@ def main():
 
     # check each url using threading
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        results = [result for result in executor.map(check, data) if result is not None]
+        results = [result for result in executor.map(
+            check, data) if result is not None]
 
     # results is a list of CompareResult(s)
     if results:
@@ -103,8 +107,11 @@ def read_info(file):
         return False
 
     if create_csv_if_not_exist(file):
-        wait_key(f"Add url to {gv.info_file} and save.\n"
-                 f"Press any key to continue...")
+        print(f"Add url to {gv.info_file} and save.\n"
+              f"Press any key to continue...")
+        sleep(1)
+        os.system(file)
+        wait_key()
         restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
 
     with open(file, 'r', newline='') as f:
@@ -115,10 +122,10 @@ def read_info(file):
         duplicates = set()
         for line in reader:
             data_dict = {
-                    "url": line['url'],
-                    'ep': int(line['ep']) if line['ep'] else None,
-                    'title': line['title']
-                }
+                "url": line['url'],
+                'ep': int(line['ep']) if line['ep'] else None,
+                'title': line['title']
+            }
             if line['url'] not in read_urls:
                 data.append(data_dict)
                 read_urls.append(line['url'])
@@ -170,13 +177,16 @@ def save(results, file=gv.info_file):
                     line = line.rstrip()
                     if result.old_ep:
                         components = line.split(',')
-                        line = ','.join(components[:2]) + ',' + str(result.current_ep)  # replace old ep with new ep
+                        # replace old ep with new ep
+                        line = ','.join(
+                            components[:2]) + ',' + str(result.current_ep)
                     else:
                         added = True
                         if line[-1] != ',':
                             line += ','
                         line += str(result.current_ep)
-                        print(f"Added '{result.title}' to checklist. (current ep {result.current_ep})")
+                        print(
+                            f"Added '{result.title}' to checklist. (current ep {result.current_ep})")
                     line += '\n'
                     break
             f.write(line)
@@ -211,7 +221,8 @@ def report(results):
             else:
                 n = wait_key("> ", end='').strip().lower()
                 print(n)
-            if not selectively_open(n, links, cmd):  # did not open at least one (entered in an exit key)
+            # did not open at least one (entered in an exit key)
+            if not selectively_open(n, links, cmd):
                 break
 
     return printed_once
