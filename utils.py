@@ -15,10 +15,9 @@ def wait_for_internet(prompt="Waiting for internet...", cls=True):
         try:
             requests.get("https://www.google.com/")
         except requests.exceptions.ConnectionError:
-            if prompt:
-                if not printed_once:
-                    print(prompt)
-                    printed_once = True
+            if prompt and not printed_once:
+                print(prompt)
+                printed_once = True
         else:
             if cls:
                 os.system("cls")
