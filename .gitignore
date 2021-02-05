@@ -142,3 +142,4 @@ cython_debug/
 /test.py
 /urls.csv
 /test.html
+.idea/
