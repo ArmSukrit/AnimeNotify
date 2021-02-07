@@ -21,7 +21,7 @@ installed_checkers = {
     "anime-master": anime_master_checker,
     "anime-sugoi": anime_sugoi_checker,
     "fairyanime": fairyanime_checker,
-    "animekimi_checker": animekimi_checker,
+    "animekimi": animekimi_checker,
     "anime-kimuchi": anime_kimuchi_checker,
     "anime-teri": anime_teri_checker,
     "akaanime": akaanime_checker,
@@ -160,7 +160,7 @@ def check(info):
         if key in url:
             checker = installed_checkers[key]
             return compare(checker, info)
-    print(f"Checker for {url} is not found or not installed.\n")
+    print(f"Checker for {url} is not found, key is incorrect, or not installed.\n")
     return None
 
 
