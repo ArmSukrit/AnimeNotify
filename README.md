@@ -7,7 +7,7 @@
 
 In command prompt, run these
 - pip install -r requirements.txt
-- python main.py          and read instructions (that will be printed) in the console
+- python main.py (and read instructions in the console)
 - ???
 - profit
 
