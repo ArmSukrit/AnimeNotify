@@ -12,6 +12,15 @@ This script checks for new anime episodes on supported websites. If it detects n
 - ???
 - profit
 
+### Suggestion
+You can make a batch file (.bat) for an esay double click method to run
+- open a text editor and paste these
+```
+python "...\path\to\main.py"
+```
+- save as animenotify.bat
+- more profit
+
 ## Making a new checker for an unsupported website
 To write your own checker function, use this draft and define it in checkers.py.
 ```
