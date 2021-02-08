@@ -3,7 +3,6 @@ This script checks for new anime episodes on supported websites. Supported websi
 
 ## Usage
 - download a zip version [here](https://github.com/ArmSukrit/AnimeNotify/archive/master.zip) and extract all to an empty folder or clone https://github.com/ArmSukrit/AnimeNotify.git
--- if
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 - open a new terminal or command prompt and cd to the folder
 #### In command prompt, run these
