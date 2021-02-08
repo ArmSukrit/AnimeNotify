@@ -25,13 +25,15 @@ def anime_example_checker(url="", get_url_struct=False):
 ```
 A checker (function) needs to be named {someWeb}_checker needs, takes 2 parameters, url and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website). 
 
-After defining any new checkers in checkers.py, install them at installed_checkers dict in main.py. 
+After defining any new checkers in checkers.py, install them at INSTALLED_CHECKERS dict in main.py. 
 ```
+# main.py
+
 from checkers import *
 ...
 
-installed_checkers = {
-    "anime-example": anime_example_checker,  # don't forget to install here, in main.py!
+INSTALLED_CHECKERS = {
+    "anime-example": anime_example_checker,  # don't forget to install here!
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
     ...
