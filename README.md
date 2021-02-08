@@ -13,7 +13,7 @@ In command prompt, run these
 - profit
 
 ## Making a new checker for an unsupported website
-To write your own checker function, use this draft or see checkers in checkers.py and copy their structures.
+To write your own checker function, use this draft and define it in checkers.py.
 ```
 def anime_example_checker(url="", get_url_struct=False):
     if get_url_struct:
@@ -21,8 +21,22 @@ def anime_example_checker(url="", get_url_struct=False):
 
     r = requests.get(url, headers=gv.headers)
     # todo: make it return those below
-    return None, None  # int(all eps on website), str(link to latest ep)
+    return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)
 ```
-A checker (function) needs to be named {someWeb}_checker needs, takes 2 parameters, url and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website). After defining any new checkers in checkers.py, install them at installed_checkers dict in main.py. 
+A checker (function) needs to be named {someWeb}_checker needs, takes 2 parameters, url and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website). 
 
-A key of a key/checker_func pair in the dict must be the identifier of that website, for example, for https://www.youtube.com/playlist?list=PLwLSw1_eDZl01_ftoIT3birJWkpxFZkEl, the key could be "youtube" or "youtube.com".
+After defining any new checkers in checkers.py, install them at installed_checkers dict in main.py. 
+```
+from checkers import *
+...
+
+installed_checkers = {
+    "anime-example": anime_example_checker,  # don't forget to install here, in main.py!
+    "anime-hayai": anime_hayai_checker,
+    "4anime.to": four_anime_to_checker,
+    ...
+}
+```
+A key of a key/checker_func pair in the dict must be the identifier of that website, for example
+- for http://anime-example.com/{id}/, the key could be "anime-example" or "anime-example.com"
+- for https://www.youtube.com/playlist?list=PLwLSw1_eDZl01_ftoIT3birJWkpxFZkEl, the key could be "youtube" or "youtube.com".
