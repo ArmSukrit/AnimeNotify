@@ -6,7 +6,7 @@ from time import sleep
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
-from utils import compare, wait_for_internet, wait_key
+from utils import compare, wait_for_internet, wait_key, update_url_structs
 
 from exceptions import CannotCheckError
 

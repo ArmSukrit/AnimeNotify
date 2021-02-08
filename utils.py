@@ -10,6 +10,9 @@ else:
 from global_var import main_file, checkers_file
 
 
+URLS_FILE = "supported_websites.txt"
+
+
 def wait_for_internet(prompt="Waiting for internet...", cls=True):
     printed_once = False
     while True:
@@ -184,3 +187,30 @@ class CompareResult:
     def __repr__(self):
         return f"{self.__class__.__name__}(title='{self.title}', current_ep={self.current_ep}, " \
                f"current_link='{self.current_link}', old_ep={self.old_ep})"
+
+
+def get_supported_urls_structures():
+    """ return a list of url structures of all supported websites """
+
+    from checkers import __dict__ as d
+    urls_structs = []
+    for k, v in d.items():
+        if "checker" in k and callable(v):
+            urls_structs.append(v(get_url_struct=True))
+    return urls_structs
+
+
+def update_url_structs():
+    """ write url structures of all supported websites to a text file """
+
+    global URLS_FILE
+    with open(URLS_FILE, "w", encoding="utf8") as f:
+        urls_structs = get_supported_urls_structures()
+        f.write(f"{len(urls_structs)} in total\n")
+        for url_struct in urls_structs:
+            f.write(f"{url_struct}\n")
+    print(f"{URLS_FILE} is updated")
+
+
+if __name__ == "__main__":
+    pass
