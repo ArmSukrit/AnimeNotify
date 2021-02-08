@@ -94,8 +94,8 @@ def main():
         found_new_ep_results = [
             result for result in results if result.old_ep is not None]
         if found_new_ep_results:
-            from gui import AnimeNotifyApp
-            AnimeNotifyApp(found_new_ep_results).run()
+            from gui import ReportApp
+            ReportApp(found_new_ep_results).run()
         else:
             if not pause:
                 sleep(3)
@@ -130,6 +130,9 @@ def read_info(file):
     while create_csv_if_not_exist(file):
         print(f"Add url to {gv.info_file} and save.\n"
               f"Press any key to continue...")
+        # TODO launch GUI for url adding
+        # 
+        # 
         sleep(1)
         os.system(file)
         wait_key()
@@ -159,6 +162,9 @@ def read_info(file):
                      f"Add some and save.\n"
                      f"Then press any key to continue...")
             print()
+            # TODO launch GUI for url adding
+            # 
+            # 
         else:
             break
 

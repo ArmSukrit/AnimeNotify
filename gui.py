@@ -6,6 +6,16 @@ from os import system
 from kivy.uix.label import Label
 
 
+class AddScreen(GridLayout):
+    # TODO
+    pass
+
+
+class AddApp(App):
+    def build(self):
+        return AddScreen()
+
+
 class ReportScreen(GridLayout):
     cols = 1
 
@@ -38,14 +48,15 @@ class ReportScreen(GridLayout):
             titles_grid.add_widget(ep_btn)
         self.add_widget(titles_grid)
 
-        self.add_widget(Label(text="Click on any buttons above! :D", y=self.y / 10))
+        self.add_widget(
+            Label(text="Click on any buttons above! :D", y=self.y / 10))
 
     def open_all_on_press(self, instance):
         for result in self.results:
             system("start " + result.current_link)
 
 
-class AnimeNotifyApp(App):
+class ReportApp(App):
     def __init__(self, results, **kwargs):
         super().__init__(**kwargs)
         self.results = results
