@@ -10,10 +10,6 @@ from utils import compare, wait_for_internet, wait_key, update_url_structs
 
 from exceptions import CannotCheckError
 
-# This bot compares the number of specific html elements against the number in save file and can optionally
-# return the link to the latest ep
-
-
 INSTALLED_CHECKERS = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
@@ -226,62 +222,6 @@ def save(results, file=gv.info_file):
         if added:
             print()
         return added
-
-
-def report(results):
-    """return True if printed something in terminal else False"""
-
-    printed_once = False
-    links = []
-    for i, result in enumerate(results, 1):
-        if result.is_found():
-            links.append(result.current_link)
-            if not printed_once:
-                print("New update(s)")
-                printed_once = True
-            print(f"{i}: {result.title} ep {result.current_ep}")
-    print()
-
-    cmd = "start "
-    if len(links) == 1:
-        if wait_key("Press\n'A' to open in browser,\nelse to exit.\n> ", end='').lower() == 'a':
-            os.system(cmd + links[0])
-    else:
-        print("Enter selected number to open via browser,\n'A' to open All,\nelse to exit.")
-        while True:
-            if len(links) >= 10:
-                n = input("> ").strip()
-            else:
-                n = wait_key("> ", end='').strip().lower()
-                print(n)
-            # did not open at least one (entered in an exit key)
-            if not selectively_open(n, links, cmd):
-                break
-
-    return printed_once
-
-
-def selectively_open(n, links, cmd):
-    """" open selected or open all via default browser
-        return True if entered 'A', 'a', or a number else False """
-
-    if n == 'a':  # open all
-        for link in links:
-            os.system(cmd + link)
-        return True
-    else:  # open selected
-        try:
-            n = int(n)
-        except ValueError:  # entered non-number
-            return False
-        else:
-            try:
-                os.system(cmd + links[n - 1])
-            except IndexError:  # entered a number but not good
-                print(f"Only 1 through {len(links)}, 'A' or else")
-                return True  # because entered a number
-            else:
-                return True
 
 
 if __name__ == '__main__':
