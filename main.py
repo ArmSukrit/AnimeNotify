@@ -92,7 +92,7 @@ def main():
         else:
             sleep(3)
     else:
-        print("No update is found.")
+        print("\nNo update is found.")
         sleep(3)
     # end of program
 
