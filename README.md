@@ -2,24 +2,31 @@
 This script checks for new anime episodes on supported websites. If it detects new episodes, a clickable GUI, implemented with Kivy, is launched.
 
 ## Usage
-- download a zip version [here](https://github.com/ArmSukrit/AnimeNotify/archive/master.zip) and extract all to an empty folder or clone https://github.com/ArmSukrit/AnimeNotify.git
+- download a zip version [here](https://github.com/ArmSukrit/AnimeNotify/archive/master.zip) and extract all to an empty folder  
+or clone https://github.com/ArmSukrit/AnimeNotify.git
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 - open a new terminal or command prompt and cd to the folder
 #### In command prompt, run these
 - pip install -r requirements.txt
-- python checkers.py -update -see (write url structures to "supported_websites.txt" (-update) and see them (-see))
-- python main.py (and read instructions in the console)
+- python checkers.py -update -see  
+(write url structures to "supported_websites.txt" (-update) and see them (-see))
+- python main.py  
+(and read instructions in the console)
 - ???
 - profit
 
-### Suggestion
-You can make a batch file (.bat) for an esay double click method to run
+### More profit
+You can make a batch file (.bat) for an **esay double click method to run**
 - open a text editor and paste these
 ```
 python "...\path\to\main.py"
 ```
 - save as animenotify.bat
+- double click on it (same thing with open cmd and execute python main.py)
+- ???
 - more profit
+
+note: "...\path\to\main.py" is the full path of main.py, for example, "C:\Users\Admin\Downloads\AnimeNotify-master\main.py"
 
 ## Making a new checker for an unsupported website
 To write your own checker function, use this draft and define it in checkers.py.
