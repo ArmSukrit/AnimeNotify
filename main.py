@@ -4,13 +4,13 @@ import os
 import sys
 from time import sleep
 
-from utils import wait_for_internet, wait_key, restart, compare
+# each key of checkers dict is something common across urls from the same website --------------------------------------
+from checkers import *
+from utils import compare, restart, wait_for_internet, wait_key
 
 # This bot compares the number of specific html elements against the number in save file and can optionally
 # return the link to the latest ep
 
-# each key of checkers dict is something common across urls from the same website --------------------------------------
-from checkers import *
 
 installed_checkers = {
     "anime-hayai": anime_hayai_checker,
@@ -80,13 +80,21 @@ def main():
         results = [result for result in executor.map(
             check, data) if result is not None]
 
-    # results is a list of CompareResult(s)
+    # results is a list of utils.CompareResult(s)
     if results:
         save(results)
-        report(results)
+
+        # launch the gui only if found new ep when there is old ep in save file
+        found_new_ep_results = [result for result in results if result.old_ep is not None]
+        if found_new_ep_results:
+            from gui import AnimeNotifyApp
+            AnimeNotifyApp(found_new_ep_results).run()
+        else:
+            sleep(3)
     else:
         print("No update is found.")
         sleep(3)
+    # end of program
 
 
 def print_what_to_check(data):
@@ -160,7 +168,8 @@ def check(info):
         if key in url:
             checker = installed_checkers[key]
             return compare(checker, info)
-    print(f"Checker for {url} is not found, key is incorrect, or not installed.\n")
+    print(
+        f"Checker for {url} is not found, key is incorrect, or not installed.\n")
     return None
 
 
