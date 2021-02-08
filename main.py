@@ -6,7 +6,7 @@ from time import sleep
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
-from utils import compare, restart, wait_for_internet, wait_key
+from utils import compare, wait_for_internet, wait_key
 
 # This bot compares the number of specific html elements against the number in save file and can optionally
 # return the link to the latest ep
@@ -114,36 +114,40 @@ def read_info(file):
             return True
         return False
 
-    if create_csv_if_not_exist(file):
+    while create_csv_if_not_exist(file):
         print(f"Add url to {gv.info_file} and save.\n"
               f"Press any key to continue...")
         sleep(1)
         os.system(file)
         wait_key()
-        restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
+    print()
 
-    with open(file, 'r', newline='') as f:
-        reader = csv.DictReader(f, fieldnames=gv.field_names)
-        next(reader)
-        data = []
-        read_urls = []
-        duplicates = set()
-        for line in reader:
-            data_dict = {
-                "url": line['url'],
-                'ep': int(line['ep']) if line['ep'] else None,
-                'title': line['title']
-            }
-            if line['url'] not in read_urls:
-                data.append(data_dict)
-                read_urls.append(line['url'])
-            else:
-                duplicates.add(line['url'])
-    if not data:
-        wait_key(f"There is no url in {gv.info_file}\n"
-                 f"Add some and save.\n"
-                 f"Then press any key to continue...")
-        restart(fp=os.path.abspath(__file__), py_executable=sys.executable)
+    data = []
+    while True:
+        with open(file, 'r', newline='') as f:
+            reader = csv.DictReader(f, fieldnames=gv.field_names)
+            next(reader)
+            read_urls = []
+            duplicates = set()
+            for line in reader:
+                data_dict = {
+                    "url": line['url'],
+                    'ep': int(line['ep']) if line['ep'] else None,
+                    'title': line['title']
+                }
+                if line['url'] not in read_urls:
+                    data.append(data_dict)
+                    read_urls.append(line['url'])
+                else:
+                    duplicates.add(line['url'])
+
+        if not data:
+            wait_key(f"There is no url in {gv.info_file}\n"
+                    f"Add some and save.\n"
+                    f"Then press any key to continue...")
+            print()
+        else:
+            break
 
     return data, duplicates
 

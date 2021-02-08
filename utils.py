@@ -57,12 +57,6 @@ def see_in_browser(html_text, file="test.html"):
     os.system(file)
 
 
-def restart(fp, py_executable="python"):
-    """restart the caller python script of this func"""
-    os.system(f"{py_executable} {fp}")
-    exit(0)
-
-
 def install(key, checker_name, url_structure, checker):
     if not (key and checker_name and url_structure):
         print("You need to provide key, checker name, url structure and checker function")
