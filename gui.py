@@ -13,12 +13,13 @@ class ReportScreen(GridLayout):
         super().__init__(**kwargs)
         self.results = results
 
-        # add open all button
-        open_all_btn = Button(text="open all")
-        open_all_btn.text_size = (100, 100)
-        open_all_btn.height = 20
-        open_all_btn.bind(on_press=self.open_all_on_press)
-        self.add_widget(open_all_btn)
+        if len(results) > 1:
+            # add open all button
+            open_all_btn = Button(text="open all")
+            open_all_btn.text_size = (100, 100)
+            open_all_btn.height = 20
+            open_all_btn.bind(on_press=self.open_all_on_press)
+            self.add_widget(open_all_btn)
 
         # add GridLayout Label and button for each title
         titles_grid = GridLayout(cols=2)
