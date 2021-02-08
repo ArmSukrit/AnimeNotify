@@ -14,7 +14,7 @@ from exceptions import CannotCheckError
 # return the link to the latest ep
 
 
-installed_checkers = {
+INSTALLED_CHECKERS = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
     "kissanimes.tv": kissanimes_tv_checker,
@@ -185,9 +185,9 @@ def check(info):
     """
 
     url = info['url']
-    for key in installed_checkers.keys():
+    for key in INSTALLED_CHECKERS.keys():
         if key in url:
-            checker = installed_checkers[key]
+            checker = INSTALLED_CHECKERS[key]
             try:
                 return compare(checker, info)
             except CannotCheckError:

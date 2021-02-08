@@ -19,7 +19,7 @@ def anime_hayai_checker(url="", get_url_struct=False):
     return len(eps), eps[-1].a['href']
 
 
-def four_anime_to_ichecker(url="", get_url_struct=False):
+def four_anime_to_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://4anime.to/{category}/{title}"
 
@@ -29,7 +29,7 @@ def four_anime_to_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].a['href']
 
 
-def kissanimes_tv_ichecker(url="", get_url_struct=False):
+def kissanimes_tv_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://kissanimes.tv/category/{title}"
 
@@ -39,7 +39,7 @@ def kissanimes_tv_ichecker(url="", get_url_struct=False):
     return len(eps), "https://kissanimes.tv" + eps[0]['href']
 
 
-def youtube_playlist_ichecker(url="", get_url_struct=False):
+def youtube_playlist_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.youtube.com/playlist?list={list_id}"
 
@@ -50,7 +50,7 @@ def youtube_playlist_ichecker(url="", get_url_struct=False):
                                 f"{url.split('list=')[1].split('&')[0]}"
 
 
-def crunchyroll_ichecker(url="", get_url_struct=False):
+def crunchyroll_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.crunchyroll.com/{title}"
 
@@ -63,7 +63,7 @@ def crunchyroll_ichecker(url="", get_url_struct=False):
     return int(last_ep.text.split("Episode ")[1].split()[0]), "https://www.crunchyroll.com" + last_ep['href']
 
 
-def anime_master_ichecker(url="", get_url_struct=False):
+def anime_master_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://anime-master.com/{title}/"
 
@@ -74,7 +74,7 @@ def anime_master_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def anime_sugoi_ichecker(url="", get_url_struct=False):
+def anime_sugoi_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.anime-sugoi.com/{id}/"
 
@@ -84,7 +84,7 @@ def anime_sugoi_ichecker(url="", get_url_struct=False):
     return len(eps) // 3, eps[-3]['href']
 
 
-def fairyanime_ichecker(url="", get_url_struct=False):
+def fairyanime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://fairyanime.com/{title}/"
 
@@ -95,7 +95,7 @@ def fairyanime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].td.a['href']
 
 
-def animekimi_ichecker(url="", get_url_struct=False):
+def animekimi_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://animekimi.com/{category}/{title}/"
 
@@ -105,7 +105,7 @@ def animekimi_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def anime_kimuchi_ichecker(url="", get_url_struct=False):
+def anime_kimuchi_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://anime-kimuchi.com/{year}/{month}/{day}/{title}/"
 
@@ -116,7 +116,7 @@ def anime_kimuchi_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def anime_teri_ichecker(url="", get_url_struct=False):
+def anime_teri_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.anime-teri.com/{id}/{title}"
 
@@ -126,7 +126,7 @@ def anime_teri_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].center.a['href']
 
 
-def akaanime_ichecker(url="", get_url_struct=False):
+def akaanime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://akaanime.com/{category}/{id}"
 
@@ -136,7 +136,7 @@ def akaanime_ichecker(url="", get_url_struct=False):
     return len(eps), url  # there is no direct link to any single ep
 
 
-def hereanime_ichecker(url="", get_url_struct=False):
+def hereanime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://hereanime.com/{title}"
 
@@ -146,7 +146,7 @@ def hereanime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].a['href']
 
 
-def anime_i_ichecker(url="", get_url_struct=False):
+def anime_i_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://anime-i.com/{title}/"
 
@@ -157,7 +157,7 @@ def anime_i_ichecker(url="", get_url_struct=False):
     return len(eps), url + eps[-1]['href'][1:]
 
 
-def mio_anime_ichecker(url="", get_url_struct=False):
+def mio_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.mio-anime.com/{??}/{???}/"
 
@@ -167,7 +167,7 @@ def mio_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].center.a['href']
 
 
-def gg_anime_ichecker(url="", get_url_struct=False):
+def gg_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.gg-anime.com/{title}/"
 
@@ -178,7 +178,7 @@ def gg_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].span.a['href']
 
 
-def shibaanime_ichecker(url="", get_url_struct=False):
+def shibaanime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.shibaanime.com/anime/{id}"
 
@@ -188,7 +188,7 @@ def shibaanime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].a['href']
 
 
-def animelizm_ichecker(url="", get_url_struct=False):
+def animelizm_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.animelizm.com/{title}/"
 
@@ -198,7 +198,7 @@ def animelizm_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def i_movie_hd_ichecker(url="", get_url_struct=False):
+def i_movie_hd_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.i-moviehd.com/{title}/"
 
@@ -208,7 +208,7 @@ def i_movie_hd_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def gogoanime_ichecker(url="", get_url_struct=False):
+def gogoanime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://gogoanime.so/category/{title}"
 
@@ -218,7 +218,7 @@ def gogoanime_ichecker(url="", get_url_struct=False):
     return int(ep), "https://gogoanime.so/" + url.split('/')[-1] + f"-episode-{ep}"
 
 
-def animefreak_ichecker(url="", get_url_struct=False):
+def animefreak_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.animefreak.tv/watch/{title}"
 
@@ -228,7 +228,7 @@ def animefreak_ichecker(url="", get_url_struct=False):
     return int(eps.text.split()[-1]), eps['href']
 
 
-def chia_anime_ichecker(url="", get_url_struct=False):
+def chia_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "http://www.chia-anime.me/episode/{title}/"
 
@@ -239,7 +239,7 @@ def chia_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[0].a['href']
 
 
-def boss_anime_ichecker(url="", get_url_struct=False):
+def boss_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://boss-anime.com/anime/{title}/"
 
@@ -250,7 +250,7 @@ def boss_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def animeseesan_ichecker(url="", get_url_struct=False):
+def animeseesan_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://animeseesan.com/{title}"
 
@@ -260,7 +260,7 @@ def animeseesan_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def pokemon_th_ichecker(url="", get_url_struct=False):
+def pokemon_th_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.pokemon-th.com/{title}/"
 
@@ -270,7 +270,7 @@ def pokemon_th_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].a['href']
 
 
-def anime_thai_ichecker(url="", get_url_struct=False):
+def anime_thai_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://anime-thai.com/{id}/"
 
@@ -280,7 +280,7 @@ def anime_thai_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def ok_anime_ichecker(url="", get_url_struct=False):
+def ok_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://ok-anime.com/{id?}/{title}"
 
@@ -290,7 +290,7 @@ def ok_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def king_anime_ichecker(url="", get_url_struct=False):
+def king_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.king-anime.com/{title}/"
 
@@ -301,7 +301,7 @@ def king_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[0]['href']
 
 
-def animelolo_ichecker(url="", get_url_struct=False):
+def animelolo_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.animelolo.com/{id}/"
 
@@ -315,7 +315,7 @@ def animelolo_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1].a['href']
 
 
-def anime_gg_ichecker(url="", get_url_struct=False):
+def anime_gg_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.anime-gg.com/{title}/"
 
@@ -325,7 +325,7 @@ def anime_gg_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def one23_hd_ichecker(url="", get_url_struct=False):
+def one23_hd_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.123-hd.com/{title}-ep-{valid_ep}"
 
@@ -335,7 +335,7 @@ def one23_hd_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def neko_miku_ichecker(url="", get_url_struct=False):
+def neko_miku_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://neko-miku.com/{id}/"
 
@@ -345,7 +345,7 @@ def neko_miku_ichecker(url="", get_url_struct=False):
     return len(eps), "https://neko-miku.com" + eps[-1]['href']
 
 
-def cat2auto_ichecker(url="", get_url_struct=False):
+def cat2auto_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://cat2auto.com/m/{id}"
 
@@ -355,7 +355,7 @@ def cat2auto_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def animeindy_ichecker(url="", get_url_struct=False):
+def animeindy_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.animeindy.com/{title}/"
 
@@ -365,7 +365,7 @@ def animeindy_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def do_anime_ichecker(url="", get_url_struct=False):
+def do_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://do-anime.com/{id}/{title?}"
 
@@ -376,7 +376,7 @@ def do_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def dutoon_ichecker(url="", get_url_struct=False):
+def dutoon_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://dutoon.com/{category}/{title}/"
 
@@ -386,7 +386,7 @@ def dutoon_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def animemala_ichecker(url="", get_url_struct=False):
+def animemala_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://animemala.com/{id}/"
 
@@ -397,7 +397,7 @@ def animemala_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def anifume_ichecker(url="", get_url_struct=False):
+def anifume_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://anifume.com/{id}"
 
@@ -407,7 +407,7 @@ def anifume_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def merlin_anime_ichecker(url="", get_url_struct=False):
+def merlin_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://merlin-anime.com/{category}/{id}/{title}/"
 
@@ -417,7 +417,7 @@ def merlin_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def ki_anime_ichecker(url="", get_url_struct=False):
+def ki_anime_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://ki-anime.com/{id}/{title}"
 
@@ -427,7 +427,7 @@ def ki_anime_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def cartoonsubthai_ichecker(url="", get_url_struct=False):
+def cartoonsubthai_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.cartoonsubthai.com/{title}/"
 
@@ -438,7 +438,7 @@ def cartoonsubthai_ichecker(url="", get_url_struct=False):
     return len(eps), eps[0]['href']
 
 
-def anime_suba_ichecker(url="", get_url_struct=False):
+def anime_suba_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.anime-suba.com/{title}/"
 
@@ -449,7 +449,7 @@ def anime_suba_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def otaame_ichecker(url="", get_url_struct=False):
+def otaame_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://otaame.com/{id}/"
 
@@ -460,7 +460,7 @@ def otaame_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def animelucky_ichecker(url="", get_url_struct=False):
+def animelucky_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://animelucky.com/name/{id}/{title}.html"
 
@@ -470,7 +470,7 @@ def animelucky_ichecker(url="", get_url_struct=False):
     return len(eps), "https://animelucky.com" + eps[-1]['href']
 
 
-def anime_hub_ichecker(url="", get_url_struct=False):
+def anime_hub_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.anime-hub.com/{id}/{title}"
 
@@ -480,7 +480,7 @@ def anime_hub_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def animehdzero_ichecker(url="", get_url_struct=False):
+def animehdzero_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.animehdzero.com/catagory/{id}"
 
@@ -490,7 +490,7 @@ def animehdzero_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def doo_anime_sanook_ichecker(url="", get_url_struct=False):
+def doo_anime_sanook_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://www.xn--12c1ca5a8bpx4a4bxe.com/movies/{title}/ (ดูอนิเมะสนุก.com)"
 
@@ -501,7 +501,7 @@ def doo_anime_sanook_ichecker(url="", get_url_struct=False):
     return len(eps), eps[-1]['href']
 
 
-def anime_daisuki_net_ichecker(url="", get_url_struct=False):
+def anime_daisuki_net_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "https://anime-daisuki.net/{year}/{month}/{day}/{title}/"
 
