@@ -86,13 +86,15 @@ def main():
             # False is returned by check function if Checker for {url} is not found or not installed, or key is incorrect
             # or Checker doesn't work for some reasons to be investigated
             pause = True
+
+            # filter results that went wrong out
             results = [result for result in results if result != False]
 
     # results is a list of utils.CompareResult(s)
     if results:
         save(results)
 
-        # launch the gui only if found new ep when there is old ep in save file
+        # filter results so that the gui launches only if found new ep when there is old ep in save file
         found_new_ep_results = [
             result for result in results if result.old_ep is not None]
         if found_new_ep_results:

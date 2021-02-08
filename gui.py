@@ -42,8 +42,7 @@ class ReportScreen(GridLayout):
 
     def open_all_on_press(self, instance):
         for result in self.results:
-            if result.current_link is not None:
-                system("start " + result.current_link)
+            system("start " + result.current_link)
 
 
 class AnimeNotifyApp(App):
