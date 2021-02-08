@@ -1,5 +1,5 @@
 # AnimeNotify
-This script checks for new anime episodes on supported websites. Supported websites and url structures of them can be found in checkers.py.
+This script checks for new anime episodes on supported websites. If it detects new episodes, a clickable GUI, made with Kivy, is launched.
 
 ## Usage
 - download a zip version [here](https://github.com/ArmSukrit/AnimeNotify/archive/master.zip) and extract all to an empty folder or clone https://github.com/ArmSukrit/AnimeNotify.git
