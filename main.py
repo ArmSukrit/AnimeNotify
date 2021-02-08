@@ -113,7 +113,7 @@ def main():
 
 
 def print_what_to_check(data):
-    print("Checking...")
+    print(f"Checking {len(data)} titles")
     for each in data:
         print(f"- {each['title']}  ({each['url']})")
     print("_________________________________________________________________________________________________________\n")
