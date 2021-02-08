@@ -1,3 +1,4 @@
+from exceptions import CannotCheckError
 import os
 import requests
 import sys
@@ -153,7 +154,7 @@ def compare(checker, info):
     except:
         print(
             f"cannot check {info['title']}, ({info['url']}) checker = {checker.__name__}")
-        return None
+        raise CannotCheckError
     else:
         saved_ep = info['ep']
         title = info['title']

@@ -8,6 +8,8 @@ from time import sleep
 from checkers import *
 from utils import compare, wait_for_internet, wait_key
 
+from exceptions import CannotCheckError
+
 # This bot compares the number of specific html elements against the number in save file and can optionally
 # return the link to the latest ep
 
@@ -76,24 +78,37 @@ def main():
         report_duplicates(duplicate_urls)
 
     # check each url using threading
+    pause = False
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = [result for result in executor.map(
             check, data) if result is not None]
+        if False in results:
+            # False is returned by check function if Checker for {url} is not found or not installed, or key is incorrect
+            # or Checker doesn't work for some reasons to be investigated
+            pause = True
+            results = [result for result in results if result != False]
 
     # results is a list of utils.CompareResult(s)
     if results:
         save(results)
 
         # launch the gui only if found new ep when there is old ep in save file
-        found_new_ep_results = [result for result in results if result.old_ep is not None]
+        found_new_ep_results = [
+            result for result in results if result.old_ep is not None]
         if found_new_ep_results:
             from gui import AnimeNotifyApp
             AnimeNotifyApp(found_new_ep_results).run()
         else:
-            sleep(3)
+            if not pause:
+                sleep(3)
+            else:
+                wait_key()
     else:
         print("\nNo update is found.")
-        sleep(3)
+        if not pause:
+            sleep(3)
+        else:
+            wait_key()
     # end of program
 
 
@@ -143,8 +158,8 @@ def read_info(file):
 
         if not data:
             wait_key(f"There is no url in {gv.info_file}\n"
-                    f"Add some and save.\n"
-                    f"Then press any key to continue...")
+                     f"Add some and save.\n"
+                     f"Then press any key to continue...")
             print()
         else:
             break
@@ -171,10 +186,13 @@ def check(info):
     for key in installed_checkers.keys():
         if key in url:
             checker = installed_checkers[key]
-            return compare(checker, info)
+            try:
+                return compare(checker, info)
+            except CannotCheckError:
+                return False
     print(
-        f"Checker for {url} is not found, key is incorrect, or not installed.\n")
-    return None
+        f"Checker for {url} is not found or not installed, or key is incorrect.\n")
+    return False
 
 
 def save(results, file=gv.info_file):
