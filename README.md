@@ -15,6 +15,8 @@ In command prompt, run these
 ## Making a new checker for an unsupported website
 To write your own checker function, use this draft and define it in checkers.py.
 ```
+# checkers.py
+
 def anime_example_checker(url="", get_url_struct=False):
     if get_url_struct:
         return "http://anime-example.com/{id}/"  # str(url struct of that website)
