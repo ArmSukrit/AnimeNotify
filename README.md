@@ -31,9 +31,14 @@ python "...\path\to\main.py"
 note: "...\path\to\main.py" is the full path of main.py, for example, "C:\Users\Admin\Downloads\AnimeNotify-master\main.py"
 
 ## Making a new checker for an unsupported website
-A checker is a fucntion that needs to be named {someWeb}_checker, takes 2 parameters, namely url="" and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website).  
+Every checker in checkers.py is a fucntion that 
+- needs to be named {someWeb}_checker
+- takes 2 parameters, url="" and get_url_struct=False
+- returns str(url struct of that website) if get_url_struct == True  
+else returns int(all eps on website), str(link to latest ep)
 
-To write your own checker function, copy the code below and paste into a new file named "lab.py" in the same directory as main.py and checkers.py.
+To write your own checker function, copy the code below and paste into a new file named "lab.py" in the same directory as main.py and checkers.py.  
+Redefine the _checker function to return values correctly based of url and get_url_struct.
 ```
 # in lab.py
 
@@ -77,7 +82,7 @@ if __name__ == "__main__":
     install(key, checker_name, url_structure, _checker)
 
 ```
-You can test your checker by calling test(url="your_url"). After finishing writing the body of your checker, fill in key, checker_name, and url_structure, then uncomment and call install() below.
+After finishing writing the body of your checker, you can test your checker by calling test(url="your_url"). After sucessfull testing, fill in key, checker_name, and url_structure, then uncomment and call install() below.
 
 The key must be the identifier of the website, for example
 - for http://anime-example.com/{id}/, the key could be "anime-example" or "anime-example.com"
