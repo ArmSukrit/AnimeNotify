@@ -1,12 +1,12 @@
 # AnimeNotify
 This script checks for new anime episodes on supported websites. If it detects new episodes, a clickable GUI, implemented with Kivy, is launched.
 
-## Usage
+## Download
 - download a zip version [here](https://github.com/ArmSukrit/AnimeNotify/archive/master.zip) and extract all to an empty folder  
 or clone https://github.com/ArmSukrit/AnimeNotify.git
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
-- open a new terminal or command prompt and [cd](http://modulesunraveled.com/command-line-beginners/moving-and-out-directories-cd-command) to the folder
-#### In command prompt, run these
+## Usage
+open a command prompt or equivalent, and run these
 - pip install -r requirements.txt
 - python checkers.py -update -see  
 (write url structures to "supported_websites.txt" (-update) and see them (-see))
@@ -15,7 +15,7 @@ or clone https://github.com/ArmSukrit/AnimeNotify.git
 - ???
 - profit
 
-### More profit
+## More profit
 You can make a batch file (.bat) for an **esay double click method to run**
 - open a text editor and paste these
 ```
