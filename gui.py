@@ -90,4 +90,4 @@ class ReportApp(App):
 
 
 if __name__ == "__main__":
-    AddApp().run()
+    pass

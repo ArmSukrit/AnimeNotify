@@ -7,7 +7,7 @@ from time import sleep
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
-from utils import compare, wait_for_internet, wait_key, update_url_structs
+from utils import compare, wait_for_internet, wait_key, URLS_FILE
 
 from exceptions import CannotCheckError
 
@@ -118,43 +118,48 @@ def print_what_to_check(data):
     print("_________________________________________________________________________________________________________\n")
 
 
-def read_info(file):
+def read_info(file, stop=False):
     """return list[dict], keys in dict are 'url', 'ep', 'title' and set of duplicate urls if there is any  """
 
     def create_csv_if_not_exist(path):
         if not os.path.exists(path):
             with open(path, 'w') as new_file:
                 new_file.write(','.join(gv.field_names) + '\n')
+            os.system(f"python checkers.py -update")
+            os.system(URLS_FILE)
             return True
         return False
 
-    while create_csv_if_not_exist(file):
+    if create_csv_if_not_exist(file):
         AddApp().run()
     print()
 
     data = []
-    while True:
-        with open(file, 'r', newline='') as f:
-            reader = csv.DictReader(f, fieldnames=gv.field_names)
-            next(reader)
-            read_urls = []
-            duplicates = set()
-            for line in reader:
-                data_dict = {
-                    "url": line['url'],
-                    'ep': int(line['ep']) if line['ep'] else None,
-                    'title': line['title']
-                }
-                if line['url'] not in read_urls:
-                    data.append(data_dict)
-                    read_urls.append(line['url'])
-                else:
-                    duplicates.add(line['url'])
+    tried = False
+    with open(file, 'r', newline='') as f:
+        reader = csv.DictReader(f, fieldnames=gv.field_names)
+        next(reader)
+        read_urls = []
+        duplicates = set()
+        for line in reader:
+            data_dict = {
+                "url": line['url'],
+                'ep': int(line['ep']) if line['ep'] else None,
+                'title': line['title']
+            }
+            if line['url'] not in read_urls:
+                data.append(data_dict)
+                read_urls.append(line['url'])
+            else:
+                duplicates.add(line['url'])
 
-        if not data:
-            AddApp().run()
-        else:
-            break
+    if not data and not stop:
+        AddApp().run()
+        read_info(file, stop=True)
+
+    if not data:
+        wait_key("You haven't entered any urls, try again later. D:")
+        exit(1)
 
     return data, duplicates
 
