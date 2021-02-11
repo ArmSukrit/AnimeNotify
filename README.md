@@ -8,10 +8,7 @@ or clone https://github.com/ArmSukrit/AnimeNotify.git
 ## Usage
 open a command prompt or equivalent, and run these
 - pip install -r requirements.txt
-- python checkers.py -update -see  
-(write url structures to "supported_websites.txt" (-update) and see them (-see))
-- python main.py  
-(and read instructions in the console)
+- python main.py
 - ???
 - profit
 
