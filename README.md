@@ -12,6 +12,8 @@ open a command prompt or equivalent, and run these
 - ???
 - profit
 
+note: you call add urls and titles directly to newly generated "urls.csv"
+
 ## More profit
 You can make a batch file (.bat) for an **esay double click method to run**
 - open a text editor and paste these
