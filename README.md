@@ -32,6 +32,7 @@ note: "...\path\to\main.py" is the full path of main.py, for example, "C:\Users\
 
 ## Making a new checker for an unsupported website
 A checker is a fucntion that needs to be named {someWeb}_checker, takes 2 parameters, namely url="" and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website).  
+
 To write your own checker function, copy the code below and paste into a new file named "lab.py" in the same directory as main.py and checkers.py.
 ```
 # in lab.py
