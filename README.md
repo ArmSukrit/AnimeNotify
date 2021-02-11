@@ -31,34 +31,53 @@ python "...\path\to\main.py"
 note: "...\path\to\main.py" is the full path of main.py, for example, "C:\Users\Admin\Downloads\AnimeNotify-master\main.py"
 
 ## Making a new checker for an unsupported website
-To write your own checker function, use this draft and define it in checkers.py.
+A checker is a fucntion that needs to be named {someWeb}_checker, takes 2 parameters, namely url="" and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website).  
+To write your own checker function, copy the code below and paste into a new file named "lab.py" in the same directory as main.py and checkers.py.
 ```
-# checkers.py
+# in lab.py
 
-def anime_example_checker(url="", get_url_struct=False):
+from utils import install
+import global_var as gv
+import requests
+
+
+def _checker(url="", get_url_struct=False):
     if get_url_struct:
-        return "http://anime-example.com/{id}/"  # str(url struct of that website)
+        # str(url struct of that website)
+        return "http://anime-example.com/{id}/"
 
-    r = requests.get(url, headers=gv.headers)
+    # r = requests.get(url, headers=gv.headers)
     # todo: make it return those below
-    return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)
-```
-A checker (function) needs to be named {someWeb}_checker, takes 2 parameters, url and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website). 
 
-After defining any new checkers in checkers.py, install them at INSTALLED_CHECKERS dict in main.py. 
-```
-# main.py
+    # return int(all eps on website), str(link to latest ep)
+    return 10, "http://anime-example.com/{id}/ep10"
 
-from checkers import *
-...
 
-INSTALLED_CHECKERS = {
-    "anime-example": anime_example_checker,  # don't forget to install here!
-    "anime-hayai": anime_hayai_checker,
-    "4anime.to": four_anime_to_checker,
-    ...
-}
+def test(url):
+    try:
+        print(_checker(url))
+    except Exception as e:
+        print(e)
+
+
+if __name__ == "__main__":
+    # print the result of your checker
+    test(url="http://anime-example.com/543/")
+
+    # fill these three below before installation
+    key = "anime-example"  # identifier of the website
+    # valid function name (ends with _checker)
+    checker_name = "anime_example_checker"
+    # url structure when copied from address bar
+    # conventional struct elements: {id}, {title}, {ep}, {year}, {month}, ...
+    url_structure = "http://anime-example.com/{id}/"
+
+    # uncomment below to install (will write to main.py and checkers.py directly)
+    install(key, checker_name, url_structure, _checker)
+
 ```
-A key of a key/checker_func pair in the dict must be the identifier of that website, for example
+You can test your checker by calling test(url="your_url"). After finishing writing the body of your checker, fill in key, checker_name, and url_structure, then uncomment and call install() below.
+
+The key must be the identifier of the website, for example
 - for http://anime-example.com/{id}/, the key could be "anime-example" or "anime-example.com"
 - for https://www.youtube.com/playlist?list=PLwLSw1_eDZl01_ftoIT3birJWkpxFZkEl, the key could be "youtube" or "youtube.com".
