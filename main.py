@@ -1,5 +1,6 @@
 import concurrent.futures
 import csv
+from gui import AddApp
 import os
 import sys
 from time import sleep
@@ -128,14 +129,7 @@ def read_info(file):
         return False
 
     while create_csv_if_not_exist(file):
-        print(f"Add url to {gv.info_file} and save.\n"
-              f"Press any key to continue...")
-        # TODO launch GUI for url adding
-        # 
-        # 
-        sleep(1)
-        os.system(file)
-        wait_key()
+        AddApp().run()
     print()
 
     data = []
@@ -158,13 +152,7 @@ def read_info(file):
                     duplicates.add(line['url'])
 
         if not data:
-            wait_key(f"There is no url in {gv.info_file}\n"
-                     f"Add some and save.\n"
-                     f"Then press any key to continue...")
-            print()
-            # TODO launch GUI for url adding
-            # 
-            # 
+            AddApp().run()
         else:
             break
 

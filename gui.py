@@ -1,14 +1,38 @@
-from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.button import Button
 from os import system
 
+from kivy.app import App
+from kivy.properties import ObjectProperty
+from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
+
+from global_var import info_file
 
 
 class AddScreen(GridLayout):
-    # TODO
-    pass
+    url = ObjectProperty()
+    title = ObjectProperty()
+    warning = ObjectProperty()
+
+    def warn(self, message=""):
+        self.warning.text = message
+
+    def addx(self):
+        if self.url.text and self.title.text:
+            with open(info_file, 'a') as f:
+                f.write(f"{self.url.text},{self.title.text},\n")
+            self.url.text = ""
+            self.warn("Added " + self.title.text + "!")
+            self.title.text = ""
+        elif self.url.text:
+            self.warn("add title!")
+            self.title.focus = True
+        elif self.title.text:
+            self.warn("add url!")
+            self.url.focus = True
+        else:
+            self.warn("add url and title!")
+            self.url.focus = True
 
 
 class AddApp(App):
@@ -63,3 +87,7 @@ class ReportApp(App):
 
     def build(self):
         return ReportScreen(self.results)
+
+
+if __name__ == "__main__":
+    AddApp().run()

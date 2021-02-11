@@ -1,0 +1,32 @@
+#:kivy 2.0.0
+
+<AddScreen>:
+    cols: 2
+
+    add: add
+    url: url
+    title: title
+    warning: warning
+
+    Label:
+        text: "URL"
+    TextInput:
+        id: url
+        multiline: False
+        on_text_validate: root.addx()
+        write_tab: False
+
+    Label:
+        text: "Title"
+    TextInput:
+        id: title
+        multiline: False
+        on_text_validate: root.addx()
+        write_tab: False
+
+    Label:
+        id: warning
+    Button:
+        text: "ADD"
+        id: add
+        on_release: root.addx()
