@@ -62,8 +62,8 @@ def see_in_browser(html_text, file="test.html"):
 
 
 def install(key, checker_name, url_structure, checker):
-    """ install newly defined checker in lab.py to main.py and checkers.py 
-        this copies paste code 
+    """ install newly defined checker in lab.py to main.py and checkers.py.
+         
 
         # contents in lab.py { ----------------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ def _install_at_checkers(checker_name, url_structure):
 def _install_at_main(key, checker_name, installed_checkers):
 
     def create_checker_str(checkers):
-        string = "installed_checkers = {\n"
+        string = "INSTALLED_CHECKERS = {\n"
         for web_key, func in checkers.items():
             if web_key == key:
                 string += f'    "{web_key}": {checker_name},\n'

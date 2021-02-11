@@ -11,8 +11,12 @@ def anime_example_checker(url="", get_url_struct=False):
     # todo: make it return those below
     return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)
 
-key = ""
-checker_name = ""
+key = "anime-example"
+checker_name = "_checker"
 url_structure = ""
 checker = anime_example_checker
-install(key, checker_name, url_structure, checker)
+
+if __name__ == "__main__":
+    install(key, checker_name, url_structure, checker)
+
+
