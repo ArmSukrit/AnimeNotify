@@ -78,8 +78,8 @@ if __name__ == "__main__":
     # conventional struct elements: {id}, {title}, {ep}, {year}, {month}, ...
     url_structure = "http://anime-example.com/{id}/"
 
-    # uncomment below to install (will write to main.py and checkers.py directly)
-    install(key, checker_name, url_structure, _checker)
+    # comment/uncomment below to install (will write to main.py and checkers.py directly)
+    # install(key, checker_name, url_structure, _checker)
 
 ```
 After finishing writing the body of your checker, you can test your checker by calling test(url="your_url"). After sucessfull testing, fill in key, checker_name, and url_structure, then uncomment and call install() below.
