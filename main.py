@@ -121,18 +121,11 @@ def print_what_to_check(data):
 def read_info(file, stop=False):
     """return list[dict], keys in dict are 'url', 'ep', 'title' and set of duplicate urls if there is any  """
 
-    def create_csv_if_not_exist(path):
-        if not os.path.exists(path):
-            with open(path, 'w') as new_file:
-                new_file.write(','.join(gv.field_names) + '\n')
-            os.system(f"python checkers.py -update")
-            os.system(URLS_FILE)
-            return True
-        return False
-
-    if create_csv_if_not_exist(file):
-        AddApp().run()
-    print()
+    if not os.path.exists(file):
+        with open(file, 'w') as new_file:
+            new_file.write(','.join(gv.field_names) + '\n')
+        os.system(f"python checkers.py -update")
+        os.system(URLS_FILE)
 
     data = []
     tried = False
@@ -158,7 +151,6 @@ def read_info(file, stop=False):
         read_info(file, stop=True)
 
     if not data:
-        wait_key("You haven't entered any urls, try again later. D:")
         exit(1)
 
     return data, duplicates
