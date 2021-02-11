@@ -159,8 +159,8 @@ def _install_at_main(key, checker_name, installed_checkers):
     first_line_index = 0
     last_line_index = 0
     for i, line in enumerate(lines):
-        if "from checkers import *" in line:
-            first_line_index = i + 1
+        if "INSTALLED_CHECKERS" in line:
+            first_line_index = i
         if '}' in line:
             last_line_index = i + 1
             break
