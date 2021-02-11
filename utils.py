@@ -96,19 +96,23 @@ def install(key, checker_name, url_structure, checker):
 
     if not (key and checker_name and url_structure):
         print("You need to provide key, checker name, url structure and checker function")
-        return
+        return False
+    if checker_name[-8:] != "_checker":
+        print("Invalid checker name (must end with _checker)")
+        return False
     from main import INSTALLED_CHECKERS
     if key in INSTALLED_CHECKERS:
         print(f"Found existing key, {key}, already installed")
-        return
+        return False
     if checker_name in [f.__name__ for f in INSTALLED_CHECKERS.values()]:
         print(
             f"Found existing checker.__name__, {checker_name}, already installed")
-        return
+        return False
     INSTALLED_CHECKERS[key] = checker
     _install_at_main(key, checker_name, INSTALLED_CHECKERS)
     _install_at_checkers(checker_name, url_structure)
     print(f"Installed {checker_name} with key='{key}' successfully.")
+    return True
 
 
 def _install_at_checkers(checker_name, url_structure):
