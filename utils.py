@@ -62,6 +62,36 @@ def see_in_browser(html_text, file="test.html"):
 
 
 def install(key, checker_name, url_structure, checker):
+    """ install newly defined checker in lab.py to main.py and checkers.py 
+        this copies paste code 
+
+        # contents in lab.py { ----------------------------------------------------------------------------------
+
+        from utils import install
+        import global_var as gv
+        import requests
+
+
+        def anime_example_checker(url="", get_url_struct=False):
+            if get_url_struct:
+                return "http://anime-example.com/{id}/"  # str(url struct of that website)
+
+            r = requests.get(url, headers=gv.headers)
+            # TODO: make it return those below
+            return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)
+
+        key = "anime-example"
+        checker_name = "anime_example_checker"
+        url_structure = "http://anime-example.com/{id}/"
+        checker = anime_example_checker
+        install(key, checker_name, url_structure, checker)
+
+        -------------------------------------------------------------------------------------------------------- }
+
+        #  note: the function definition structure must follow above
+
+    """
+
     if not (key and checker_name and url_structure):
         print("You need to provide key, checker name, url structure and checker function")
         return
@@ -80,7 +110,10 @@ def install(key, checker_name, url_structure, checker):
 
 
 def _install_at_checkers(checker_name, url_structure):
-    with open('test.py', 'r', encoding='utf8') as f:
+    """ copies newly defined checker from lab.py to checkers.py (ignore tabbed comments)"""
+
+    file = "lab.py"
+    with open(file, 'r', encoding='utf8') as f:
         lines = f.readlines()
 
     first = 0
@@ -92,8 +125,10 @@ def _install_at_checkers(checker_name, url_structure):
             last = i + 1
             break
     raw_def_lines = [
-        f"def {checker_name}(url):\n", f'    """ {url_structure} """\n\n']
+        f"def {checker_name}(url, get_url_struct=False):\n", f'    """ {url_structure} """\n\n']
     raw_def_lines.extend(lines[first:last])
+
+    # ignore every line that starts with "   #" (starts with tab and comment)
     refined_def_lines = [
         line for line in raw_def_lines if '    #' not in line and line != '\n']
 

@@ -510,12 +510,3 @@ def anime_daisuki_net_checker(url="", get_url_struct=False):
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find_all('div', id="post-131940")[0].find_all('p')[3:-1]
     return len(eps), eps[-1].a['href']
-
-
-if __name__ == "__main__":
-    from sys import argv
-    from utils import update_url_structs, URLS_FILE, see_url_structs
-    if "-update" in argv:
-        update_url_structs()
-    if "-see" in argv:
-        see_url_structs()
