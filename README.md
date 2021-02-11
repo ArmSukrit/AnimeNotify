@@ -6,11 +6,14 @@ This script checks for new anime episodes on supported websites. If it detects n
 or clone https://github.com/ArmSukrit/AnimeNotify.git
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 ## Usage
-open a command prompt or equivalent, and run these
+open a command prompt or equivalent, and run these  
+for first time use
 - pip install -r requirements.txt
 - python main.py
 - ???
 - profit
+
+add new urls and titles by executing add.py
 
 note: you call add urls and titles directly to newly generated "urls.csv"
 
