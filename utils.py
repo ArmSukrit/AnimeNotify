@@ -63,7 +63,7 @@ def see_in_browser(html_text, file="test.html"):
 
 def install(key, checker_name, url_structure, checker):
     """ install newly defined checker in lab.py to main.py and checkers.py.
-         
+
 
         # contents in lab.py { ----------------------------------------------------------------------------------
 
@@ -72,13 +72,15 @@ def install(key, checker_name, url_structure, checker):
         import requests
 
 
-        def anime_example_checker(url="", get_url_struct=False):
+        def _checker(url="", get_url_struct=False):
             if get_url_struct:
                 return "http://anime-example.com/{id}/"  # str(url struct of that website)
 
             r = requests.get(url, headers=gv.headers)
             # TODO: make it return those below
-            return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)
+            return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)  
+
+        # last return line, "return" in line and "," in line must be True
 
         key = "anime-example"
         checker_name = "anime_example_checker"
@@ -119,13 +121,13 @@ def _install_at_checkers(checker_name, url_structure):
     first = 0
     last = 0
     for i, line in enumerate(lines):
-        if "def checker(url):" in line:
+        if 'def _checker(url="", get_url_struct=False):' in line:
             first = i + 1
-        if "return" in line:
+        if "return" in line and "," in line:
             last = i + 1
             break
     raw_def_lines = [
-        f"def {checker_name}(url, get_url_struct=False):\n", f'    """ {url_structure} """\n\n']
+        f"def {checker_name}(url, get_url_struct=False):\n", f'    if get_url_struct:\n        return "{url_structure}"\n\n']
     raw_def_lines.extend(lines[first:last])
 
     # ignore every line that starts with "   #" (starts with tab and comment)
