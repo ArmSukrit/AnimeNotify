@@ -128,7 +128,6 @@ def read_info(file, stop=False):
         os.system(URLS_FILE)
 
     data = []
-    tried = False
     with open(file, 'r', newline='') as f:
         reader = csv.DictReader(f, fieldnames=gv.field_names)
         next(reader)
