@@ -212,5 +212,13 @@ def update_url_structs():
     print(f"{URLS_FILE} is updated")
 
 
+def see_url_structs():
+    # code 1 signals something went wrong, could be file not found
+    if not os.path.exists(URLS_FILE):
+        update_url_structs()
+        if os.system("start " + URLS_FILE) == 1:
+            print("Something went wrong, woops!")
+
+
 if __name__ == "__main__":
     pass

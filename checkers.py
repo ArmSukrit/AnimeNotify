@@ -1,3 +1,4 @@
+from utils import see_url_structs
 import cloudscraper
 import requests
 from bs4 import BeautifulSoup
@@ -513,13 +514,8 @@ def anime_daisuki_net_checker(url="", get_url_struct=False):
 
 if __name__ == "__main__":
     from sys import argv
-    from utils import update_url_structs, URLS_FILE
+    from utils import update_url_structs, URLS_FILE, see_url_structs
     if "-update" in argv:
         update_url_structs()
     if "-see" in argv:
-        from os import system
-        # code 1 signals something went wrong, could be file not found
-        if system("start " + URLS_FILE) == 1:
-            update_url_structs()
-            if system("start " + URLS_FILE) == 1:
-                print("Something went wrong, woops!")
+        see_url_structs()

@@ -1,4 +1,6 @@
-from os import system
+from os import system, environ
+
+environ["KIVY_NO_CONSOLELOG"] = "1"  # to hide kivy debug info
 
 from kivy.app import App
 from kivy.properties import ObjectProperty

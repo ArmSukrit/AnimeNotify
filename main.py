@@ -1,13 +1,14 @@
 import concurrent.futures
+from threading import Thread
 import csv
-from gui import AddApp
+from gui import AddApp, ReportApp
 import os
 import sys
 from time import sleep
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 from checkers import *
-from utils import compare, wait_for_internet, wait_key, URLS_FILE
+from utils import compare, wait_for_internet, wait_key, URLS_FILE, see_url_structs
 
 from exceptions import CannotCheckError
 
@@ -95,7 +96,6 @@ def main():
         found_new_ep_results = [
             result for result in results if result.old_ep is not None]
         if found_new_ep_results:
-            from gui import ReportApp
             ReportApp(found_new_ep_results).run()
         else:
             if not pause:
@@ -124,8 +124,8 @@ def read_info(file, stop=False):
     if not os.path.exists(file):
         with open(file, 'w') as new_file:
             new_file.write(','.join(gv.field_names) + '\n')
-        os.system(f"python checkers.py -update")
-        os.system(URLS_FILE)
+        t = Thread(target=see_url_structs)
+        t.start()
 
     data = []
     with open(file, 'r', newline='') as f:
@@ -146,11 +146,20 @@ def read_info(file, stop=False):
                 duplicates.add(line['url'])
 
     if not data and not stop:
-        AddApp().run()
-        read_info(file, stop=True)
+        os.system("cls")
+        print("No saved urls in urls.csv.\nAdd some then\nPress any key to continue...")
+        sleep(2)
+        t = Thread(target=run_addapp, name="run add app")
+        t.start()
+        wait_key()
+        data, duplicates = read_info(file, stop=True)
 
     if not data:
+        print("You have not added urls to urls.csv, try again later. D:")
+        sleep(5)
         exit(1)
+
+    os.system("cls")
 
     return data, duplicates
 
@@ -212,6 +221,10 @@ def save(results, file=gv.info_file):
         if added:
             print()
         return added
+
+
+def run_addapp():
+    AddApp().run()
 
 
 if __name__ == '__main__':
