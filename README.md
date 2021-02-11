@@ -38,7 +38,7 @@ def anime_example_checker(url="", get_url_struct=False):
     # todo: make it return those below
     return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)
 ```
-A checker (function) needs to be named {someWeb}_checker needs, takes 2 parameters, url and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website). 
+A checker (function) needs to be named {someWeb}_checker, takes 2 parameters, url and get_url_struct=False, and returns int(all eps on website), str(link to latest ep) if get_url_struct == False else returns str(url struct of that website). 
 
 After defining any new checkers in checkers.py, install them at INSTALLED_CHECKERS dict in main.py. 
 ```
