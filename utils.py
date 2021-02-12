@@ -7,7 +7,7 @@ if os.name == 'nt':
 else:
     import termios
 
-from global_var import main_file, checkers_file
+from constants import main_file, checkers_file
 
 
 URLS_FILE = "supported_websites.txt"
@@ -64,34 +64,6 @@ def see_in_browser(html_text, file="test.html"):
 def install(key, checker_name, url_structure, checker):
     """ install newly defined checker in lab.py to main.py and checkers.py.
 
-
-        # contents in lab.py { ----------------------------------------------------------------------------------
-
-        from utils import install
-        import global_var as gv
-        import requests
-
-
-        def _checker(url="", get_url_struct=False):
-            if get_url_struct:
-                return "http://anime-example.com/{id}/"  # str(url struct of that website)
-
-            r = requests.get(url, headers=gv.headers)
-            # TODO: make it return those below
-            return 10, "http://anime-example.com/{id}/ep10"  # int(all eps on website), str(link to latest ep)  
-
-        # last return line, "return" in line and "," in line must be True
-
-        key = "anime-example"
-        checker_name = "anime_example_checker"
-        url_structure = "http://anime-example.com/{id}/"
-        checker = anime_example_checker
-        install(key, checker_name, url_structure, checker)
-
-        -------------------------------------------------------------------------------------------------------- }
-
-        #  note: the function definition structure must follow above
-
     """
 
     if not (key and checker_name and url_structure):
@@ -116,7 +88,7 @@ def install(key, checker_name, url_structure, checker):
 
 
 def _install_at_checkers(checker_name, url_structure):
-    """ copies newly defined checker from lab.py to checkers.py (ignore tabbed comments)"""
+    """ copies newly defined checker from lab.py to checkers.py (ignore tabbed comments) """
 
     file = "lab.py"
     with open(file, 'r', encoding='utf8') as f:
@@ -127,21 +99,16 @@ def _install_at_checkers(checker_name, url_structure):
     for i, line in enumerate(lines):
         if 'def _checker(url="", get_url_struct=False):' in line:
             first = i + 1
-        if "return" in line and "," in line:
+        if "return num_ep, last_link" in line:
             last = i + 1
             break
-    raw_def_lines = [
-        f"def {checker_name}(url, get_url_struct=False):\n", f'    if get_url_struct:\n        return "{url_structure}"\n\n']
-    raw_def_lines.extend(lines[first:last])
-
-    # ignore every line that starts with "   #" (starts with tab and comment)
-    refined_def_lines = [
-        line for line in raw_def_lines if '    #' not in line and line != '\n']
+    def_lines = [f'def {checker_name}(url="", get_url_struct=False):\n']
+    def_lines.extend(lines[first:last])
 
     with open(checkers_file, 'r', encoding='utf8') as a:
         codes = a.read()
     with open(checkers_file, 'w', encoding='utf8') as f:
-        codes += "\n\n" + ''.join(refined_def_lines)
+        codes += "\n\n" + ''.join(def_lines)
         f.write(codes)
 
 

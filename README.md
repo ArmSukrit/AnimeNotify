@@ -43,7 +43,7 @@ Redefine the _checker function to return values correctly based of url and get_u
 # in lab.py
 
 from utils import install
-import global_var as gv
+import constants
 import requests
 
 
@@ -52,11 +52,13 @@ def _checker(url="", get_url_struct=False):
         # str(url struct of that website)
         return "http://anime-example.com/{id}/"
 
-    # r = requests.get(url, headers=gv.headers)
+    # r = requests.get(url, headers=constants.headers)
     # todo: make it return those below
 
+    num_ep = 10
+    last_link = "http://anime-example.com/{id}/ep10"
     # return int(all eps on website), str(link to latest ep)
-    return 10, "http://anime-example.com/{id}/ep10"
+    return num_ep, last_link  # do not change
 
 
 def test(url):
@@ -79,7 +81,7 @@ if __name__ == "__main__":
     url_structure = "http://anime-example.com/{id}/"
 
     # comment/uncomment below to install (will write to main.py and checkers.py directly)
-    # install(key, checker_name, url_structure, _checker)
+    install(key, checker_name, url_structure, _checker)
 
 ```
 After finishing writing the body of your checker, you can test your checker by calling test(url="your_url"). After sucessfull testing, fill in key, checker_name, and url_structure, then uncomment and call install() below.

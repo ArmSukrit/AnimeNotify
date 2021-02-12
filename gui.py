@@ -8,7 +8,7 @@ from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 
-from global_var import info_file
+from constants import info_file
 
 
 class AddScreen(GridLayout):

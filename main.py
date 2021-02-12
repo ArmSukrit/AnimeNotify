@@ -70,7 +70,7 @@ def main():
     wait_for_internet()
 
     # read urls from csv
-    data, duplicate_urls = read_info(gv.info_file)
+    data, duplicate_urls = read_info(constants.info_file)
     print_what_to_check(data)
     if duplicate_urls:
         report_duplicates(duplicate_urls)
@@ -123,13 +123,13 @@ def read_info(file, stop=False):
 
     if not os.path.exists(file):
         with open(file, 'w') as new_file:
-            new_file.write(','.join(gv.field_names) + '\n')
+            new_file.write(','.join(constants.field_names) + '\n')
         t = Thread(target=see_url_structs)
         t.start()
 
     data = []
     with open(file, 'r', newline='') as f:
-        reader = csv.DictReader(f, fieldnames=gv.field_names)
+        reader = csv.DictReader(f, fieldnames=constants.field_names)
         next(reader)
         read_urls = []
         duplicates = set()
@@ -168,7 +168,7 @@ def report_duplicates(duplicates):
     printed_urls = []
     for url in duplicates:
         if url not in printed_urls:
-            print(f"Found multiple of {url} in {gv.info_file}.")
+            print(f"Found multiple of {url} in {constants.info_file}.")
             printed_urls.append(url)
     print()
 
@@ -192,7 +192,7 @@ def check(info):
     return False
 
 
-def save(results, file=gv.info_file):
+def save(results, file=constants.info_file):
     """returns True if new url is added to checklist else False"""
 
     with open(file, 'r') as f:
