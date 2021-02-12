@@ -13,9 +13,8 @@ for first time use
 - ???
 - profit
 
-add new urls and titles by executing add.py
-
-note: you call add urls and titles directly to newly generated "urls.csv"
+add more urls and titles by executing add.py
+see all supported websites by executing checkers.py
 
 ## More profit
 You can make a batch file (.bat) for an **esay double click method to run**
@@ -24,7 +23,7 @@ You can make a batch file (.bat) for an **esay double click method to run**
 python "...\path\to\main.py"
 ```
 - save as animenotify.bat
-- double click on it (same thing with open cmd and execute python main.py)
+- double click on it (same thing with open cmd and execute "python main.py" above)
 - ???
 - more profit
 
