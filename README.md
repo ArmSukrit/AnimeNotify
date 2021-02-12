@@ -14,7 +14,8 @@ for first time use
 - profit
 
 execute add.py to add more urls and titles  
-execute checkers.py to see all supported websitess
+execute checkers.py to see all supported websitess  
+open urls.csv to see all saved urls and titles
 
 ## More profit
 You can make a batch file (.bat) for an **esay double click method to run**
