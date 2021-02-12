@@ -13,8 +13,8 @@ for first time use
 - ???
 - profit
 
-add more urls and titles by executing add.py
-see all supported websites by executing checkers.py
+execute add.py to add more urls and titles
+execute checkers.py to see all supported websitess
 
 ## More profit
 You can make a batch file (.bat) for an **esay double click method to run**
