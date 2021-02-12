@@ -13,7 +13,7 @@ for first time use
 - ???
 - profit
 
-execute add.py to add more urls and titles
+execute add.py to add more urls and titles  
 execute checkers.py to see all supported websitess
 
 ## More profit
