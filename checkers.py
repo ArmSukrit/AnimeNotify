@@ -1,9 +1,12 @@
-from utils import see_url_structs
 import cloudscraper
 import requests
 from bs4 import BeautifulSoup
 
 import constants
+
+if __name__ == "__main__":
+    from utils import see_url_structs
+    see_url_structs()
 
 # Each checker function needs to return int(all eps on website), str(link to latest ep)
 # define checkers here, then install in main.py ------------------------------------------------------------------------

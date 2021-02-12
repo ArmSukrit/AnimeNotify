@@ -1,14 +1,16 @@
-from exceptions import CannotCheckError
 import os
-import requests
 import sys
+
+import requests
+
+from exceptions import CannotCheckError
+
 if os.name == 'nt':
     import msvcrt
 else:
     import termios
 
-from constants import main_file, checkers_file
-
+from constants import checkers_file, main_file
 
 URLS_FILE = "supported_websites.txt"
 
@@ -224,8 +226,8 @@ def see_url_structs():
     # code 1 signals something went wrong, could be file not found
     if not os.path.exists(URLS_FILE):
         update_url_structs()
-        if os.system("start " + URLS_FILE) == 1:
-            print("Something went wrong, woops!")
+    if os.system("start " + URLS_FILE) == 1:
+        print("Something went wrong, woops!")
 
 
 if __name__ == "__main__":
