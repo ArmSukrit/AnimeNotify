@@ -513,3 +513,16 @@ def anime_daisuki_net_checker(url="", get_url_struct=False):
     s = BeautifulSoup(r.text, 'lxml')
     eps = s.find_all('div', id="post-131940")[0].find_all('p')[3:-1]
     return len(eps), eps[-1].a['href']
+
+
+def one23_hd_checker(url="", get_url_struct=False):
+    if get_url_struct:
+        # str(url struct of that website)
+        return "https://www.123-hd.com/{title}/"
+
+    r = requests.get(url, headers=constants.headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    elem = soup.find(
+        'select', onchange="location = this.value;").find_all('option')
+
+    return len(elem), elem[-1]["value"]

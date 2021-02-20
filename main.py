@@ -43,7 +43,6 @@ INSTALLED_CHECKERS = {
     "king-anime": king_anime_checker,
     "animelolo": animelolo_checker,
     "anime-gg": anime_gg_checker,
-    "123-hd": one23_hd_checker,
     "neko-miku": neko_miku_checker,
     "cat2auto": cat2auto_checker,
     "animeindy": animeindy_checker,
@@ -61,6 +60,7 @@ INSTALLED_CHECKERS = {
     "animehdzero": animehdzero_checker,
     "xn--12c1ca5a8bpx4a4bxe": doo_anime_sanook_checker,
     "anime-daisuki.net": anime_daisuki_net_checker,
+    "123-hd": one23_hd_checker,
 }
 
 
