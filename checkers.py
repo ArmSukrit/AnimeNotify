@@ -526,3 +526,18 @@ def one23_hd_checker(url="", get_url_struct=False):
         'select', onchange="location = this.value;").find_all('option')
 
     return len(elem), elem[-1]["value"]
+
+
+def series_dd_checker(url="", get_url_struct=False):
+    if get_url_struct:
+        # str(url struct of that website)
+        return ""
+
+    r = requests.get(url, headers=constants.headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    ep_elems = [e.find("a") for e in soup.find("article", id="the-post").find_all('p', style="text-align: center;") if "ตัวอย่าง" not in e.text]
+    ep_elems = [e for e in ep_elems if e is not None]
+
+    num_ep = len(ep_elems)
+    last_link = ep_elems[-1]['href']
+    return num_ep, last_link

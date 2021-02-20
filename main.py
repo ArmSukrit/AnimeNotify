@@ -61,6 +61,7 @@ INSTALLED_CHECKERS = {
     "xn--12c1ca5a8bpx4a4bxe": doo_anime_sanook_checker,
     "anime-daisuki.net": anime_daisuki_net_checker,
     "123-hd": one23_hd_checker,
+    "series-dd": series_dd_checker,
 }
 
 
