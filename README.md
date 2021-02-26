@@ -16,7 +16,7 @@ open urls.csv to see all saved urls and titles
 
 ## Making a new checker for an unsupported website
 Every checker in checkers.py is a fucntion that 
-- needs to be named {someWeb}_checker
+- needs to be named {web_signature}_checker
 - takes 2 parameters, url="" and get_url_struct=False
 - returns str(url struct of that website) if get_url_struct == True  
 else returns int(all eps on website), str(link to latest ep)
