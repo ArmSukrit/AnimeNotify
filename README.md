@@ -1,4 +1,4 @@
-# AnimeNotify
+# SeriesNotify
 This script checks for new series/anime episodes on supported websites. If it detects new episodes, a clickable GUI, implemented with Kivy, is launched.
 
 ## Download
