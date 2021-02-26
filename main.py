@@ -5,18 +5,21 @@ import sys
 from threading import Thread
 from time import sleep
 
-# each key of checkers dict is something common across urls from the same website --------------------------------------
-try:
-    from checkers import *
-    from exceptions import CannotCheckError
-    from gui import AddApp, ReportApp
-    from utils import (URLS_FILE, compare, see_url_structs, wait_for_internet,
-                       wait_key)
-except ImportError:
-    print("Installing dependencies...")
-    os.system(sys.executable + " -m pip install -r requirements.txt")
-    os.system("cls")
+while True:
+    try:
+        from checkers import *
+        from exceptions import CannotCheckError
+        from gui import AddApp, ReportApp
+        from utils import (URLS_FILE, compare, see_url_structs,
+                           wait_for_internet, wait_key)
+    except ImportError:
+        print("Installing dependencies...")
+        os.system(sys.executable + " -m pip install -r requirements.txt")
+        os.system("cls")
+    else:
+        break
 
+# each key of checkers dict is something common across urls from the same website --------------------------------------
 INSTALLED_CHECKERS = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
