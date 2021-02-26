@@ -6,24 +6,13 @@ This script checks for new anime episodes on supported websites. If it detects n
 (or clone https://github.com/ArmSukrit/AnimeNotify.git)
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 ## Usage
-simply run main.py (other dependencies will be installed on first time)
+1. simply run main.py (other dependencies will be installed on first time)  
+2. ???  
+3. profit
 
 run add.py to add more urls and titles  
 run checkers.py to see all supported websites  
 open urls.csv to see all saved urls and titles
-
-## More profit
-You can make a batch file (.bat) for an **esay double click method to run**
-- open a text editor and paste these
-```
-python "...\path\to\main.py"
-```
-- save as animenotify.bat
-- double click on it (same thing with open cmd and execute "python main.py" above)
-- ???
-- more profit
-
-note: "...\path\to\main.py" is the full path of main.py, for example, "C:\Users\Admin\Downloads\AnimeNotify-master\main.py"
 
 ## Making a new checker for an unsupported website
 Every checker in checkers.py is a fucntion that 
