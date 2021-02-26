@@ -1,8 +1,8 @@
 # AnimeNotify
-This script checks for new anime episodes on supported websites. If it detects new episodes, a clickable GUI, implemented with Kivy, is launched.
+This script checks for new series/anime episodes on supported websites. If it detects new episodes, a clickable GUI, implemented with Kivy, is launched.
 
 ## Download
-- download a zip version [here](https://github.com/ArmSukrit/AnimeNotify/archive/master.zip) and extract all to an empty folder  
+- download a zip version [here](https://github.com/ArmSukrit/SeriesNotify/archive/master.zip) and extract all to an empty folder  
 (or clone https://github.com/ArmSukrit/AnimeNotify.git)
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 ## Usage
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # install(key, checker_name, url_structure, _checker)
 
 ```
-After finishing writing the body of your checker, you can test your checker by calling test(url="your_url"). After sucessfull testing, fill in key, checker_name, and url_structure, then uncomment and call install() below.
+After finishing writing the body of your checker, you can test your checker by calling test(url="your_url"). After sucessful testing, fill in key, checker_name, and url_structure, then uncomment and call install() below.
 
 The key must be the identifier of the website, for example
 - for http://anime-example.com/{id}/, the key could be "anime-example" or "anime-example.com"
