@@ -35,7 +35,7 @@ Every checker in checkers.py is a fucntion that
 else returns int(all eps on website), str(link to latest ep)
 
 To write your own checker function, copy the code below and paste into a new file named "lab.py" in the same directory as main.py and checkers.py.  
-Redefine the _checker function to return values correctly based of url and get_url_struct.
+Redefine the _checker function to return values correctly based on url and get_url_struct.
 ```
 # in lab.py
 
