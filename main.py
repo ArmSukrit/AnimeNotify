@@ -5,6 +5,7 @@ import sys
 from threading import Thread
 from time import sleep
 
+limit = 2
 for i in range(3):
     try:
         from checkers import *
@@ -13,7 +14,7 @@ for i in range(3):
         from utils import (URLS_FILE, compare, see_url_structs,
                            wait_for_internet, wait_key)
     except ImportError:
-        if i == 2:
+        if i == limit:
             print("Cannot install dependencies...")
             exit(1)
         print("Installing dependencies...")
