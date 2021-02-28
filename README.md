@@ -85,4 +85,4 @@ After finishing writing the body of your checker, you can test your checker by c
 
 The key must be the identifier of the website, for example
 - for http://anime-example.com/{id}/, the key could be "anime-example" or "anime-example.com"
-- for https://www.youtube.com/playlist?list=PLwLSw1_eDZl01_ftoIT3birJWkpxFZkEl, the key could be "youtube" or "youtube.com".
+- for https://www.youtube.com/playlist?list=PLwLSw1_eDZl01_ftoIT3birJWkpxFZkEl, the key should only be youtube.com/playlist?list=, for youtube playlist only not for normal youtube videoes.
