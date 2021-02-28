@@ -2,8 +2,8 @@
 This script checks for new series/anime episodes on supported websites. If it detects new episodes, a clickable GUI, implemented with Kivy, is launched.
 
 ## Download
-- download a zip version [here](https://github.com/ArmSukrit/SeriesNotify/archive/master.zip) and extract all to an empty folder  
-(or clone https://github.com/ArmSukrit/AnimeNotify.git)
+- download a zip version [here](https://github.com/AttackRainbow/SeriesNotify/archive/master.zip) and extract all to an empty folder  
+(or clone https://github.com/AttackRainbow/AnimeNotify.git)
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 ## Usage
 1. simply run main.py (other dependencies will be installed on first time)  
