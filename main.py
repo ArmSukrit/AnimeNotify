@@ -6,6 +6,9 @@ from threading import Thread
 from time import sleep
 
 for i in range(3):
+    if i == 2:
+        print("Cannot install dependencies...")
+        exit(1)
     try:
         from checkers import *
         from exceptions import CannotCheckError
@@ -13,9 +16,6 @@ for i in range(3):
         from utils import (URLS_FILE, compare, see_url_structs,
                            wait_for_internet, wait_key)
     except ImportError:
-        if i == 2:
-            print("Cannot install dependencies...")
-            exit(1)
         print("Installing dependencies...")
         os.system(sys.executable + " -m pip install -r requirements.txt")
         os.system("cls")
