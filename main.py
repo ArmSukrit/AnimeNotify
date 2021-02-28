@@ -81,7 +81,7 @@ INSTALLED_CHECKERS = {
 # ----------------------------------------------------------------------------------------------------------------------
 
 def main():
-    wait_for_internet()
+    # wait_for_internet()
 
     # read urls from csv
     data, duplicate_urls = read_info(constants.info_file)
@@ -126,8 +126,9 @@ def main():
     # end of program
 
 
-def print_what_to_check(data):
-    print(f"Checking {len(data)} titles")
+def print_what_to_check(data: list):
+    distint_titles = set([v["title"] for v in data])
+    print(f"Checking {len(distint_titles)} titles")
     for each in sorted(data, key=lambda i: i["title"]):
         print(f"- {each['title']}  ({each['url']})")
     print("_________________________________________________________________________________________________________\n")
