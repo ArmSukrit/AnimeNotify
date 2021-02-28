@@ -6,13 +6,26 @@ This script checks for new series/anime episodes on supported websites. If it de
 (or clone https://github.com/AttackRainbow/AnimeNotify.git)
 - install [python 3.8.6](https://www.python.org/downloads/release/python-386/) or [above](https://www.python.org/downloads/) (or try with your existing python)
 ## Usage
-1. simply run main.py (other dependencies will be installed on first time)  
+1. simply run main.py
 2. ???  
 3. profit
 
 run add.py to add more urls and titles  
 run checkers.py to see all supported websites  
 open urls.csv to see all saved urls and titles
+
+NOTE:  
+In case you want to check the same title in many websites, you can save the same title with different urls. The same title, whose line comes first (is added first), is the only one that gets reported.  
+For example,  
+```
+# in urls.csv
+url,title,ep
+url_1,same title,1
+url_2,same title,1
+...,...,...
+url_3,same title,1
+```
+If new ep is detected for "same title", only url_1 gets reported.
 
 ## Making a new checker for an unsupported website
 Every checker in checkers.py is a fucntion that 
