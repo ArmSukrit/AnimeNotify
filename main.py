@@ -107,8 +107,9 @@ def main():
         save(results)
 
         # filter results so that the gui launches only if found new ep when there is old ep in save file
-        found_new_ep_results = [
-            result for result in results if result.old_ep is not None]
+        # use set so that same title but different url are the same and is/are filtered out
+        found_new_ep_results = set([
+            result for result in results if result.old_ep is not None])
         if found_new_ep_results:
             ReportApp(found_new_ep_results).run()
         else:
@@ -127,7 +128,7 @@ def main():
 
 def print_what_to_check(data):
     print(f"Checking {len(data)} titles")
-    for each in data:
+    for each in sorted(data, key=lambda i: i["title"]):
         print(f"- {each['title']}  ({each['url']})")
     print("_________________________________________________________________________________________________________\n")
 

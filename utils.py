@@ -198,6 +198,14 @@ class CompareResult:
         return f"{self.__class__.__name__}(title='{self.title}', current_ep={self.current_ep}, " \
                f"current_link='{self.current_link}', old_ep={self.old_ep})"
 
+    def __eq__(self, o: object) -> bool:
+        if self.__class__.__name__ != o.__class__.__name__:
+            return False
+        return self.title == o.title
+
+    def __hash__(self) -> int:
+        return 123
+
 
 def get_supported_urls_structures():
     """ return a list of url structures of all supported websites """
