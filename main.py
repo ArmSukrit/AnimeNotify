@@ -5,7 +5,7 @@ import sys
 from threading import Thread
 from time import sleep
 
-while True:
+for i in range(3):
     try:
         from checkers import *
         from exceptions import CannotCheckError
@@ -18,6 +18,9 @@ while True:
         os.system("cls")
     else:
         break
+if i == 2:
+    print("Cannot install dependencies...")
+    exit(1)
 
 # each key of checkers dict is something common across urls from the same website --------------------------------------
 INSTALLED_CHECKERS = {
