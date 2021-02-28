@@ -10,7 +10,7 @@ if os.name == 'nt':
 else:
     import termios
 
-from constants import checkers_file, main_file
+from constants import CONNECTION_ERROR_FLAG, checkers_file, main_file
 
 URLS_FILE = "supported_websites.txt"
 
@@ -161,9 +161,7 @@ def compare(checker, info):
     try:
         current_ep, current_link = checker(info['url'])
     except requests.exceptions.ConnectionError:
-        input("Check your internet, then try again.\n"
-              "Enter to exit\n")
-        exit(1)
+        return CONNECTION_ERROR_FLAG
     except:
         print(
             f"cannot check {info['title']}, ({info['url']}) checker = {checker.__name__}")

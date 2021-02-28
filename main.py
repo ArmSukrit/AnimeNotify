@@ -9,6 +9,7 @@ limit = 2
 for i in range(3):
     try:
         from checkers import *
+        from constants import CONNECTION_ERROR_FLAG
         from exceptions import CannotCheckError
         from gui import AddApp, ReportApp
         from utils import (URLS_FILE, compare, see_url_structs,
@@ -81,7 +82,6 @@ INSTALLED_CHECKERS = {
 # ----------------------------------------------------------------------------------------------------------------------
 
 def main():
-    # wait_for_internet()
 
     # read urls from csv
     data, duplicate_urls = read_info(constants.info_file)
@@ -95,6 +95,9 @@ def main():
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = [result for result in executor.map(
             check, data) if result is not None]
+        if CONNECTION_ERROR_FLAG in results:
+            wait_key("Check your internet, then try again.")
+            exit(1)
         if False in results:
             # False is returned by check function if Checker for {url} is not found or not installed, or key is incorrect
             # or Checker doesn't work for some reasons to be investigated
