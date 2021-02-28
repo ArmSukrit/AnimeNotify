@@ -85,6 +85,7 @@ def main():
 
     # read urls from csv
     data, duplicate_urls = read_info(constants.info_file)
+    data.sort(key=lambda each: each["title"])
     print_what_to_check(data)
     if duplicate_urls:
         report_duplicates(duplicate_urls)
@@ -129,7 +130,7 @@ def main():
 def print_what_to_check(data: list):
     distint_titles = set([v["title"] for v in data])
     print(f"Checking {len(distint_titles)} titles")
-    for each in sorted(data, key=lambda i: i["title"]):
+    for each in data:
         print(f"- {each['title']}  ({each['url']})")
     print("_________________________________________________________________________________________________________\n")
 
