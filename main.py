@@ -111,11 +111,16 @@ def main():
         save(results)
 
         # filter results so that the gui launches only if found new ep when there is old ep in save file
-        # use set so that same title but different url are the same and is/are filtered out
-        found_new_ep_results = set([
-            result for result in results if result.old_ep is not None])
-        if found_new_ep_results:
-            ReportApp(found_new_ep_results).run()
+        distint_new_ep_results = []
+        for compare_result in results:
+            if compare_result.old_ep is None:
+                continue
+            if compare_result not in distint_new_ep_results:
+                # CompareResult objects are considered the same if their title attributes are the same
+                distint_new_ep_results.append(compare_result)
+
+        if distint_new_ep_results:
+            ReportApp(distint_new_ep_results).run()
         else:
             if not pause:
                 sleep(3)
