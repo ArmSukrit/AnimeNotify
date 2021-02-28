@@ -30,7 +30,7 @@ INSTALLED_CHECKERS = {
     "anime-hayai": anime_hayai_checker,
     "4anime.to": four_anime_to_checker,
     "kissanimes.tv": kissanimes_tv_checker,
-    "youtube": youtube_playlist_checker,
+    "youtube.com/playlist?list=": youtube_playlist_checker,
     "crunchyroll": crunchyroll_checker,
     "anime-master": anime_master_checker,
     "anime-sugoi": anime_sugoi_checker,
