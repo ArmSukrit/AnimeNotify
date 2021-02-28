@@ -133,8 +133,18 @@ def main():
 def print_what_to_check(data: list):
     distint_titles = set([v["title"] for v in data])
     print(f"Checking {len(distint_titles)} titles")
-    for each in data:
-        print(f"- {each['title']}  ({each['url']})")
+    i = 1
+    for k in range(len(data)):
+        try:
+            if data[k]['title'] == data[k - 1]['title']:
+                print(
+                    f"{' ' * (i//10 + 5)}{data[k]['title']}  {data[k]['url']}")
+            else:
+                print(f"{i:3}  {data[k]['title']}  {data[k]['url']}")
+                i += 1
+        except IndexError:
+            pass
+
     print("_________________________________________________________________________________________________________\n")
 
 
