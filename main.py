@@ -4,6 +4,7 @@ import os
 import sys
 from threading import Thread
 from time import sleep
+from utils import CompareResult
 
 limit = 2
 for i in range(3):
@@ -228,16 +229,20 @@ def check(info):
     return False
 
 
-def save(results, file=constants.info_file):
+def save(results: CompareResult, file=constants.info_file):
     """returns True if new url is added to checklist else False"""
 
     with open(file, 'r') as f:
         lines = f.readlines()
     with open(file, 'w') as f:
         added = False
+        ignores = []  # to ignore same title with diff urls
         for line in lines:
             for result in results:
-                if result.url in line:
+                if result.title in ignores:
+                    continue
+                if result.title in line:
+                    ignores.append(result.title)
                     line = line.rstrip()
                     if result.old_ep:
                         components = line.split(',')
@@ -252,7 +257,6 @@ def save(results, file=constants.info_file):
                         print(
                             f"Added '{result.title}' to checklist. (current ep {result.current_ep})")
                     line += '\n'
-                    break
             f.write(line)
         if added:
             print()
