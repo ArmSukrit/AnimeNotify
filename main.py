@@ -237,10 +237,10 @@ def save(results: CompareResult, file=constants.info_file):
     with open(file, 'w') as f:
         added = False
         ignores = []  # to ignore same title with diff urls
-        for line in lines:
-            for result in results:
-                if result.title in ignores:
-                    continue
+        for result in results:
+            if result.title in ignores:
+                continue
+            for line in lines:
                 if result.title in line:
                     ignores.append(result.title)
                     line = line.rstrip()
@@ -257,7 +257,7 @@ def save(results: CompareResult, file=constants.info_file):
                         print(
                             f"Added '{result.title}' to checklist. (current ep {result.current_ep})")
                     line += '\n'
-            f.write(line)
+                f.write(line)
         if added:
             print()
         return added

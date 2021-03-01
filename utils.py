@@ -172,7 +172,7 @@ def compare(checker, info):
         if saved_ep is None:
             return CompareResult(info['url'], title, current_ep)
         else:
-            if saved_ep != current_ep:
+            if saved_ep < current_ep:
                 return CompareResult(info['url'], title, current_ep, current_link, saved_ep)
             else:
                 return None
