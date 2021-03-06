@@ -236,13 +236,16 @@ def save(results: CompareResult, file=constants.info_file):
         lines = f.readlines()
     with open(file, 'w') as f:
         added = False
-        ignores = []  # to ignore same title with diff urls
+        ignored_titles = []  # to ignore same title with diff urls
+        ignored_lines = []  # to ignore modified lines as index
         for result in results:
-            if result.title in ignores:
+            if result.title in ignored_titles:
                 continue
-            for line in lines:
+            for i, line in enumerate(lines):
+                if i in ignored_lines:
+                    continue
                 if result.title in line:
-                    ignores.append(result.title)
+                    ignored_titles.append(result.title)
                     line = line.rstrip()
                     if result.old_ep:
                         components = line.split(',')
@@ -257,7 +260,11 @@ def save(results: CompareResult, file=constants.info_file):
                         print(
                             f"Added '{result.title}' to checklist. (current ep {result.current_ep})")
                     line += '\n'
-                f.write(line)
+                    lines[i] = line
+                    ignored_lines.append(i)
+        if lines[-1][-1] != "\n":
+            lines[-1][-1] += '\n'
+        f.writelines(lines)
         if added:
             print()
         return added
