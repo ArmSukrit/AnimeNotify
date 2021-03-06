@@ -80,6 +80,7 @@ class ReportScreen(GridLayout):
     def open_all_on_press(self, instance):
         for result in self.results:
             system("start " + result.current_link)
+        exit(0)
 
 
 class ReportApp(App):
