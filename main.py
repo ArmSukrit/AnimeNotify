@@ -4,7 +4,6 @@ import os
 import sys
 from threading import Thread
 from time import sleep
-from utils import CompareResult
 
 limit = 2
 for i in range(3):
@@ -13,7 +12,7 @@ for i in range(3):
         from constants import CONNECTION_ERROR_FLAG
         from exceptions import CannotCheckError
         from gui import AddApp, ReportApp
-        from utils import (URLS_FILE, compare, see_url_structs,
+        from utils import (URLS_FILE, CompareResult, compare, see_url_structs,
                            wait_for_internet, wait_key)
     except ImportError:
         if i == limit:
