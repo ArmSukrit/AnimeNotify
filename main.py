@@ -165,11 +165,11 @@ def read_info(file, stop=False):
     data = []
     with open(file, 'r', newline='') as f:
         reader = csv.DictReader(f, fieldnames=constants.field_names)
-        if next(reader)['url'] != "url":  # if the first line != "url,title,ep"
-            reader = csv.DictReader(f, fieldnames=constants.field_names)
         read_urls = []
         duplicates = set()
         for line in reader:
+            if line['url'] == "url":
+                continue
             data_dict = {
                 "url": line['url'],
                 'ep': int(line['ep']) if line['ep'] else None,
