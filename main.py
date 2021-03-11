@@ -4,6 +4,7 @@ import os
 import sys
 from threading import Thread
 from time import sleep
+from typing import List
 
 limit = 2
 for i in range(3):
@@ -120,7 +121,11 @@ def main():
                 distint_new_ep_results.append(compare_result)
 
         if distint_new_ep_results:
-            ReportApp(distint_new_ep_results).run()
+            print("ssss")
+            if "-cli" in sys.argv:
+                report_in_cli(distint_new_ep_results)
+            else:
+                ReportApp(distint_new_ep_results).run()
         else:
             if not pause:
                 sleep(3)
@@ -133,6 +138,17 @@ def main():
         else:
             wait_key()
     # end of program
+
+
+def report_in_cli(results: List[CompareResult]):
+    if len(results) > 1:
+        print("Enter 'A' to open all")
+    for result in results:
+        print(
+            f"{result.title} ep {result.old_ep} -> {result.current_ep} {result.current_link}")
+    if wait_key().strip().lower() == 'a':
+        for result in results:
+            os.system("start " + result.current_link)
 
 
 def print_what_to_check(data: list):
