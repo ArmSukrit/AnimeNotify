@@ -121,7 +121,6 @@ def main():
                 distint_new_ep_results.append(compare_result)
 
         if distint_new_ep_results:
-            print("ssss")
             if "-cli" in sys.argv:
                 report_in_cli(distint_new_ep_results)
             else:
